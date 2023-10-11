@@ -48,7 +48,12 @@ function Signup() {
         password: formData.password,
         isAuthor: false,
       });
-      if (response) navigate("/");
+      if (response) {
+        // Login
+        console.log(response);
+        navigate("/");
+        return;
+      }
     } catch (error: any) {
       const errorArray = error.response.data;
       const errorMsgs = errorArray.map((err: any) => err.msg);
@@ -56,10 +61,6 @@ function Signup() {
       setErrMsgs(errorMsgs);
     }
   }
-
-  React.useEffect(() => {
-    console.log(errMsgs);
-  }, []);
 
   return (
     <div className="h-screen flex flex-col">
