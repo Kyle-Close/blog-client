@@ -5,9 +5,12 @@ import SignupForm from "./SignupForm";
 
 import { useNavigate } from "react-router-dom";
 import { areAllFieldsPopulated } from "../../helpers/util";
+import { UserContext } from "../../context/userContext";
+import { UserContextType } from "../../@types/user";
 
 function Signup() {
   const navigate = useNavigate();
+  const { login } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",
@@ -50,7 +53,13 @@ function Signup() {
       });
       if (response) {
         // Login
-        console.log(response);
+        const { _id, token, username, isAuthor } = response.data.user;
+        const user = {
+          id: _id,
+          username: username,
+          isAuthor: isAuthor,
+        };
+        login(user, token);
         navigate("/");
         return;
       }
