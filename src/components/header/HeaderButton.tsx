@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-function HeaderButton({ text, buttonColor, url }) {
+interface HeaderButtonProps {
+  text: string;
+  buttonColor: string;
+  url: string;
+}
+
+function HeaderButton({ text, buttonColor, url }: HeaderButtonProps) {
   const navigate = useNavigate();
   return (
     <button
-      className="h-8 w-16 rounded-md shadow-lg hover:shadow-xl border border-black"
+      className={tw_button}
       style={{ backgroundColor: buttonColor }}
       onClick={() => navigate(url)}
     >
@@ -14,3 +20,19 @@ function HeaderButton({ text, buttonColor, url }) {
 }
 
 export default HeaderButton;
+
+const tw_button = [
+  "text-sm",
+  "sm:font-semibold",
+  "md:text-md",
+  "h-8",
+  "sm:h-10",
+  "w-16",
+  "sm:w-20",
+  "md:w-24",
+  "rounded-md",
+  "shadow-lg",
+  "hover:shadow-3xl",
+  "border",
+  "border-black",
+].join(" ");

@@ -19,8 +19,13 @@ function Header() {
         </div>
       </div>
       <div className={tw_rightSide}>
-        <HeaderButton url="/signup" buttonColor="green" text="Sign up" />
-        <HeaderButton url="/signin" buttonColor="blue" text="Log in" />
+        <a className={tw_allPosts} href="/">
+          All Posts
+        </a>
+        <div className={tw_buttonContainer}>
+          <HeaderButton url="/signup" buttonColor="green" text="Sign up" />
+          <HeaderButton url="/signin" buttonColor="blue" text="Log in" />
+        </div>
       </div>
       <Logo />
     </div>
@@ -46,7 +51,13 @@ const tw_headerContainer = [
 
 const tw_imgContainer = ["sm:hidden", "w-8"].join(" ");
 
-const tw_rightSide = ["flex", "gap-2", "sm:gap-4", "text-sm"].join(" ");
+const tw_rightSide = [
+  "flex",
+  "justify-center",
+  "items-center",
+  "gap-4",
+  "sm:gap-",
+].join(" ");
 
 const tw_linksLeftSide = [
   "hidden",
@@ -55,7 +66,31 @@ const tw_linksLeftSide = [
   "sm:flex",
   "sm:gap-6",
   "md:gap-10",
+  "lg:gap-16",
   "md:text-lg",
 ].join(" ");
 
-const tw_leftSide = ["flex", "grow"].join(" ");
+const tw_leftSide = ["flex-1"].join(" ");
+
+const tw_allPosts = [
+  "hidden",
+  "bg-clip-text",
+  "text-transparent",
+  "font-semibold",
+  "text-md",
+  "md:text-lg",
+  "sm:flex",
+  "bg-gradient-to-r",
+  "from-pink-500",
+  "to-red-600",
+].join(" ");
+
+const tw_buttonContainer = [
+  "flex",
+  "gap-2",
+  "sm:gap-4",
+  "md:gap-8",
+  "md:pl-2",
+  "lg:pl-16",
+  "xl:pl-32",
+].join(" ");
