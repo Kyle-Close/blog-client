@@ -22,9 +22,7 @@ function App({ children }) {
 
   return (
     <>
-      {displayMenu && (
-        <MenuSlideout displayMenu={displayMenu} closeMenu={closeMenu} />
-      )}
+      {displayMenu && <MenuSlideout closeMenu={closeMenu} />}
 
       <Header openMenu={openMenu} />
       {children}

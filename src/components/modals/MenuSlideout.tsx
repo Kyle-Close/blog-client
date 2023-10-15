@@ -2,10 +2,9 @@ import React from "react";
 
 interface MenuSlideoutProps {
   closeMenu: () => void;
-  displayMenu: boolean;
 }
 
-function MenuSlideout({ displayMenu, closeMenu }: MenuSlideoutProps) {
+function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
   const menuClassNames = getMenuClassNames("left");
 
   React.useEffect(() => {
