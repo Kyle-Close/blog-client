@@ -1,3 +1,5 @@
+import React from "react";
+
 import Menu from "./Menu";
 import Logo from "./Logo";
 import HeaderButton from "./HeaderButton";
@@ -5,12 +7,16 @@ import HeaderButton from "./HeaderButton";
 // Assets
 import menuImg from "../../assets/menu-icon.png";
 
-function Header() {
+interface HeaderProps {
+  openMenu: () => void;
+}
+
+function Header({ openMenu }: HeaderProps) {
   return (
     <div className={tw_headerContainer}>
       <div className={tw_leftSide}>
         <div className={tw_imgContainer}>
-          <Menu menuImg={menuImg} />
+          <Menu openMenu={openMenu} menuImg={menuImg} />
         </div>
         <div className={tw_linksLeftSide}>
           <a href="/">Web Dev</a>

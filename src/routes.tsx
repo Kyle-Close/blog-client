@@ -4,11 +4,19 @@ import Signup from "./components/signup/Signup";
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: (
+      <App>
+        <div></div>
+      </App>
+    ),
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: (
+      <App>
+        <Signup />
+      </App>
+    ),
   },
   // Add more routes as needed
 ];

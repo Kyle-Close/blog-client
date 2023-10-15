@@ -73,7 +73,6 @@ function Signup() {
 
   return (
     <div className="h-screen flex flex-col">
-      <Header />
       <div className="flex flex-col gap-6 bg-header px-12 pt-20 h-full">
         <h3 className="font-semibold text-green-400 text-2xl">Sign Up</h3>
         <SignupForm

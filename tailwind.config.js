@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         header: "#2D2B2B",
+        menu: "#282828",
       },
     },
   },

@@ -1,6 +1,11 @@
-function Menu({ menuImg }) {
+interface MenuProps {
+  openMenu: () => void;
+  menuImg: string;
+}
+
+function Menu({ menuImg, openMenu }: MenuProps) {
   return (
-    <div className="flex">
+    <div onClick={openMenu} className="flex">
       <img src={menuImg} width={"100px"} />
     </div>
   );
