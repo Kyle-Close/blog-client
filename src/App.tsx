@@ -11,7 +11,9 @@ function App({ children }) {
 
   const openMenu = () => {
     console.log("opening menu");
-    setDisplayMenu(true);
+    setTimeout(() => {
+      setDisplayMenu(true);
+    }, 10);
   };
 
   const closeMenu = () => {
@@ -20,7 +22,9 @@ function App({ children }) {
 
   return (
     <>
-      {displayMenu && <MenuSlideout closeMenu={closeMenu} />}
+      {displayMenu && (
+        <MenuSlideout displayMenu={displayMenu} closeMenu={closeMenu} />
+      )}
 
       <Header openMenu={openMenu} />
       {children}
