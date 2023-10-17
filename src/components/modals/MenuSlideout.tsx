@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../header/Logo";
+import { menuLinks } from "../../data/menu-links";
 
 interface MenuSlideoutProps {
   closeMenu: () => void;
@@ -10,7 +11,6 @@ function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
 
   React.useEffect(() => {
     const handleClick = (e: any) => {
-      const { classList } = e.target;
       const parentDiv = document.getElementsByClassName("menu")[0]; // Get the first element with class "menu"
 
       // Check if the click event target is the parent div or one of its descendants
@@ -31,13 +31,23 @@ function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
     };
   }, []);
 
+  const links = menuLinks.map((link) => {
+    return (
+      <div className={tw_linkContainer}>
+        <a className={tw_link} href={link.href}>
+          {link.title}
+        </a>
+      </div>
+    );
+  });
+
   return (
     <div className={menuClassNames}>
       <div className="flex gap-4 items-end">
         <Logo />
         <h1 className={tw_title}>Blogging w Bits</h1>
       </div>
-      <div className={tw_linkSection}></div>
+      <div className={tw_linkSection}>{links}</div>
     </div>
   );
 }
@@ -83,7 +93,7 @@ function getMenuClassNames(direction: string) {
 
 export default MenuSlideout;
 
-const tw_linkSection = ["grow", "flex", "flex-col"].join(" ");
+const tw_linkSection = ["grow", "flex", "flex-col px-4"].join(" ");
 
 const tw_title = [
   "font-semibold",
@@ -95,3 +105,7 @@ const tw_title = [
   "from-orange-200",
   "to-gray-600",
 ].join(" ");
+
+const tw_linkContainer = ["pt-8", "pb-4", "border-b"].join(" ");
+
+const tw_link = ["text-xl", "font-semibold"].join(" ");
