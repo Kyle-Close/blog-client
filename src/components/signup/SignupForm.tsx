@@ -11,7 +11,7 @@ interface SignupFormProps {
 
 function SignupForm({ handleSubmit, handleChange, formData }: SignupFormProps) {
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form className={tw_form} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">
         <label htmlFor="username">Username</label>
         <input
@@ -42,10 +42,7 @@ function SignupForm({ handleSubmit, handleChange, formData }: SignupFormProps) {
           onChange={handleChange}
         />
       </div>
-      <button
-        className="bg-green-500 rounded-lg border-black w-40 h-12 mt-8"
-        type="submit"
-      >
+      <button className={tw_submitButton} type="submit">
         Sign up
       </button>
     </form>
@@ -53,3 +50,18 @@ function SignupForm({ handleSubmit, handleChange, formData }: SignupFormProps) {
 }
 
 export default SignupForm;
+
+const tw_submitButton = [
+  "sm:self-center",
+  "bg-green-700",
+  "font-semibold",
+  "rounded-lg",
+  "border-black",
+  "w-32",
+  "h-10",
+  "lg:w-40",
+  "lg:h-12",
+  "mt-8",
+].join(" ");
+
+const tw_form = ["flex", "flex-col", "gap-4", "sm:w-1/2", "lg:w-1/3"].join(" ");

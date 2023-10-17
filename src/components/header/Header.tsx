@@ -103,6 +103,7 @@ const tw_buttonContainer = [
 
 const tw_logoContainer = [
   "absolute",
+  "bottom-0",
   "transform",
   "translate-y-1/2",
   "left-1/2",

@@ -10,7 +10,7 @@ import { UserContextType } from "../../@types/user";
 
 function Signup() {
   const navigate = useNavigate();
-  const { login } = React.useContext(UserContext) as UserContextType;
+  const { login, user } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",
@@ -26,6 +26,8 @@ function Signup() {
       [name]: value,
     });
   };
+
+  console.log(user);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,26 +74,39 @@ function Signup() {
   }
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="flex flex-col gap-6 bg-header px-12 pt-20 h-full">
-        <h3 className="font-semibold text-green-400 text-2xl">Sign Up</h3>
-        <SignupForm
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          formData={formData}
-        />
-        {errMsgs && errMsgs.length > 0 ? (
-          <ul className="list-disc">
-            {errMsgs.map((msg, index) => (
-              <li key={index} className="text-sm text-red-500">
-                {msg}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+    <div className={tw_signupContentContainer}>
+      <h3 className={tw_signupTitle}>Sign Up</h3>
+      <SignupForm
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        formData={formData}
+      />
+      {errMsgs && errMsgs.length > 0 ? (
+        <ul className="list-disc">
+          {errMsgs.map((msg, index) => (
+            <li key={index} className="text-sm text-red-500">
+              {msg}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
 
 export default Signup;
+
+const tw_signupContentContainer = [
+  "grow",
+  "flex",
+  "flex-col",
+  "gap-6",
+  "sm:items-center",
+  "bg-header",
+  "px-12",
+  "pt-20",
+].join(" ");
+
+const tw_signupTitle = ["font-semibold", "text-green-400", "text-2xl"].join(
+  " "
+);
