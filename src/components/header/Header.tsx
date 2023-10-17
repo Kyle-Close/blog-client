@@ -1,5 +1,3 @@
-import React from "react";
-
 import Menu from "./Menu";
 import Logo from "./Logo";
 import HeaderButton from "./HeaderButton";
@@ -33,7 +31,9 @@ function Header({ openMenu }: HeaderProps) {
           <HeaderButton url="/signin" buttonColor="blue" text="Log in" />
         </div>
       </div>
-      <Logo />
+      <div className={tw_logoContainer}>
+        <Logo />
+      </div>
     </div>
   );
 }
@@ -99,4 +99,12 @@ const tw_buttonContainer = [
   "md:pl-2",
   "lg:pl-16",
   "xl:pl-32",
+].join(" ");
+
+const tw_logoContainer = [
+  "absolute",
+  "transform",
+  "translate-y-1/2",
+  "left-1/2",
+  "-translate-x-1/2",
 ].join(" ");

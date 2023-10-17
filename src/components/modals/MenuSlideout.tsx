@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../header/Logo";
 
 interface MenuSlideoutProps {
   closeMenu: () => void;
@@ -10,8 +11,14 @@ function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
   React.useEffect(() => {
     const handleClick = (e: any) => {
       const { classList } = e.target;
+      const parentDiv = document.getElementsByClassName("menu")[0]; // Get the first element with class "menu"
 
-      if (!classList.contains("menu")) {
+      // Check if the click event target is the parent div or one of its descendants
+      if (
+        parentDiv &&
+        (e.target === parentDiv || parentDiv.contains(e.target))
+      ) {
+      } else {
         closeMenu();
       }
     };
@@ -24,7 +31,15 @@ function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
     };
   }, []);
 
-  return <div className={menuClassNames}></div>;
+  return (
+    <div className={menuClassNames}>
+      <div className="flex gap-4 items-end">
+        <Logo />
+        <h1 className={tw_title}>Blogging w Bits</h1>
+      </div>
+      <div className={tw_linkSection}></div>
+    </div>
+  );
 }
 
 function getMenuClassNames(direction: string) {
@@ -37,6 +52,8 @@ function getMenuClassNames(direction: string) {
     "max-h-screen",
     "overflow-y-auto",
     "z-50",
+    "px-6",
+    "py-4",
   ];
 
   if (direction === "left" || direction === "right") {
@@ -65,3 +82,16 @@ function getMenuClassNames(direction: string) {
 }
 
 export default MenuSlideout;
+
+const tw_linkSection = ["grow", "flex", "flex-col"].join(" ");
+
+const tw_title = [
+  "font-semibold",
+  "text-lg",
+  "underline",
+  "bg-clip-text",
+  "text-transparent",
+  "bg-gradient-to-b",
+  "from-orange-200",
+  "to-gray-600",
+].join(" ");

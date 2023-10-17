@@ -6,7 +6,7 @@ import MenuSlideout from "./components/modals/MenuSlideout";
 // CSS
 import "./index.css";
 
-function App({ children }) {
+function App({ children }: any) {
   const [displayMenu, setDisplayMenu] = React.useState(false);
 
   const openMenu = () => {
