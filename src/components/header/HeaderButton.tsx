@@ -7,6 +7,7 @@ interface HeaderButtonProps {
 function HeaderButton({ text, buttonColor, handleClick }: HeaderButtonProps) {
   const green = "bg-green-800";
   const red = "bg-red-700";
+  const orange = "bg-orange-700";
   const tw_button = getButtonClasses(buttonColor);
   return (
     <button

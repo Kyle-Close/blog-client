@@ -19,6 +19,61 @@ function Header({ openMenu }: HeaderProps) {
   const { user, logout } = React.useContext(UserContext) as UserContextType;
   const navigate = useNavigate();
 
+  const GetHeaderButtons = () => {
+    let result;
+    const isLoggedIn = user ? true : false;
+    let isAuthor = user?.isAuthor ? true : false;
+
+    const signupButton = (
+      <HeaderButton
+        buttonColor="green-800"
+        text="Sign up"
+        handleClick={() => navigate("/signup")}
+      />
+    );
+    const loginButton = (
+      <HeaderButton
+        buttonColor="blue"
+        text="Log in"
+        handleClick={() => navigate("/login")}
+      />
+    );
+    const logoutButton = (
+      <HeaderButton
+        buttonColor="red-700"
+        text="Logout"
+        handleClick={async () => await logout()}
+      />
+    );
+    const dashboardButton = (
+      <HeaderButton
+        buttonColor="orange-700"
+        text="Dashboard"
+        handleClick={() => navigate("/")}
+      />
+    );
+
+    if (isLoggedIn && isAuthor) {
+      result = (
+        <>
+          {dashboardButton}
+          {logoutButton}
+        </>
+      );
+    } else if (isLoggedIn && !isAuthor) {
+      result = <>{logoutButton}</>;
+    } else if (!isLoggedIn) {
+      result = (
+        <>
+          {signupButton}
+          {loginButton}
+        </>
+      );
+    }
+
+    return result;
+  };
+
   return (
     <div className={tw_headerContainer}>
       <div className={tw_leftSide}>
@@ -35,28 +90,7 @@ function Header({ openMenu }: HeaderProps) {
         <a className={tw_allPosts} href="/">
           All Posts
         </a>
-        <div className={tw_buttonContainer}>
-          {user ? (
-            <HeaderButton
-              buttonColor="red-700"
-              text="Logout"
-              handleClick={async () => await logout()}
-            />
-          ) : (
-            <>
-              <HeaderButton
-                buttonColor="green-800"
-                text="Sign up"
-                handleClick={() => navigate("/signup")}
-              />
-              <HeaderButton
-                buttonColor="blue"
-                text="Log in"
-                handleClick={() => navigate("/login")}
-              />
-            </>
-          )}
-        </div>
+        <div className={tw_buttonContainer}>{GetHeaderButtons()}</div>
       </div>
       <div className={tw_logoContainer}>
         <Logo />
