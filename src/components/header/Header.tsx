@@ -1,15 +1,24 @@
+import React from "react";
 import Menu from "./Menu";
 import Logo from "./Logo";
 import HeaderButton from "./HeaderButton";
+import { useNavigate } from "react-router-dom";
 
 // Assets
 import menuImg from "../../assets/menu-icon.png";
+
+// Context
+import { UserContext } from "../../context/userContext";
+import { UserContextType } from "../../@types/user";
 
 interface HeaderProps {
   openMenu: () => void;
 }
 
 function Header({ openMenu }: HeaderProps) {
+  const { user, logout } = React.useContext(UserContext) as UserContextType;
+  const navigate = useNavigate();
+
   return (
     <div className={tw_headerContainer}>
       <div className={tw_leftSide}>
@@ -27,8 +36,26 @@ function Header({ openMenu }: HeaderProps) {
           All Posts
         </a>
         <div className={tw_buttonContainer}>
-          <HeaderButton url="/signup" buttonColor="green" text="Sign up" />
-          <HeaderButton url="/signin" buttonColor="blue" text="Log in" />
+          {user ? (
+            <HeaderButton
+              buttonColor="red-700"
+              text="Logout"
+              handleClick={async () => await logout()}
+            />
+          ) : (
+            <>
+              <HeaderButton
+                buttonColor="green-800"
+                text="Sign up"
+                handleClick={() => navigate("/signup")}
+              />
+              <HeaderButton
+                buttonColor="blue"
+                text="Log in"
+                handleClick={() => navigate("/login")}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className={tw_logoContainer}>

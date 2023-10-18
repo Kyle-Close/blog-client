@@ -1,21 +1,18 @@
-import Header from "../header/Header";
 import axios from "axios";
 import React from "react";
-import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 
-import { useNavigate } from "react-router-dom";
 import { areAllFieldsPopulated } from "../../helpers/util";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import { UserContextType } from "../../@types/user";
 
-function Signup() {
+function Login() {
   const navigate = useNavigate();
   const { login, user } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",
-    confirmPassword: "",
-    isAuthor: false,
   });
   const [errMsgs, setErrMsgs] = React.useState<string[]>();
 
@@ -37,19 +34,11 @@ function Signup() {
       return;
     }
 
-    // Check if passwords match
-    if (formData.password !== formData.confirmPassword) {
-      const responseMsg: string[] = ["Password miss-match!"];
-      setErrMsgs(responseMsg);
-      return;
-    }
-
-    // Send the request to create a new user with form data
+    // Send the request to TODO : login
     try {
-      const response = await axios.post("http://localhost:3000/users", {
+      const response = await axios.post("http://localhost:3000/login", {
         username: formData.username,
         password: formData.password,
-        isAuthor: false,
       });
       if (response) {
         // Login
@@ -64,17 +53,16 @@ function Signup() {
         return;
       }
     } catch (error: any) {
-      const errorArray = error.response.data;
-      const errorMsgs = errorArray.map((err: any) => err.msg);
+      const errorMsg = error.response.data.msg;
 
-      setErrMsgs(errorMsgs);
+      setErrMsgs([errorMsg]);
     }
   }
 
   return (
     <div className={tw_signupContentContainer}>
-      <h3 className={tw_signupTitle}>Sign Up</h3>
-      <SignupForm
+      <h3 className={tw_signupTitle}>Login</h3>
+      <LoginForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         formData={formData}
@@ -92,7 +80,7 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Login;
 
 const tw_signupContentContainer = [
   "grow",

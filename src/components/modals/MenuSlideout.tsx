@@ -97,7 +97,7 @@ const tw_linkSection = ["grow", "flex", "flex-col px-4"].join(" ");
 
 const tw_title = [
   "font-semibold",
-  "text-lg",
+  "text-md",
   "underline",
   "bg-clip-text",
   "text-transparent",
@@ -108,4 +108,4 @@ const tw_title = [
 
 const tw_linkContainer = ["pt-8", "pb-4", "border-b"].join(" ");
 
-const tw_link = ["text-xl", "font-semibold"].join(" ");
+const tw_link = ["text-lg", "font-semibold"].join(" ");
