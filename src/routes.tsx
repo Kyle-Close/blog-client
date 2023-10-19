@@ -1,13 +1,14 @@
 import App from "./App";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
+import LandingPage from "./components/landing-page/LandingPage";
 
 const routes = [
   {
     path: "/",
     element: (
       <App>
-        <div></div>
+        <LandingPage />
       </App>
     ),
   },

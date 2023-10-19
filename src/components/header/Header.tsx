@@ -1,9 +1,13 @@
 import React from "react";
 import Menu from "./Menu";
 import Logo from "./Logo";
-import HeaderButton from "./HeaderButton";
 import { useNavigate } from "react-router-dom";
 
+// Material UI Icons
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 // Assets
 import menuImg from "../../assets/menu-icon.png";
 
@@ -25,32 +29,24 @@ function Header({ openMenu }: HeaderProps) {
     let isAuthor = user?.isAuthor ? true : false;
 
     const signupButton = (
-      <HeaderButton
-        buttonColor="green-800"
-        text="Sign up"
-        handleClick={() => navigate("/signup")}
-      />
+      <button onClick={() => navigate("/signup")}>
+        <PersonAddAlt1Icon fontSize="large" color="primary" />
+      </button>
     );
     const loginButton = (
-      <HeaderButton
-        buttonColor="blue"
-        text="Log in"
-        handleClick={() => navigate("/login")}
-      />
+      <button onClick={() => navigate("/login")}>
+        <LoginIcon fontSize="large" color="secondary" />
+      </button>
     );
     const logoutButton = (
-      <HeaderButton
-        buttonColor="red-700"
-        text="Logout"
-        handleClick={async () => await logout()}
-      />
+      <button onClick={() => logout()}>
+        <LogoutIcon fontSize="large" color="error" />
+      </button>
     );
     const dashboardButton = (
-      <HeaderButton
-        buttonColor="orange-700"
-        text="Dashboard"
-        handleClick={() => navigate("/")}
-      />
+      <button onClick={() => navigate("/")}>
+        <DashboardIcon fontSize="large" color="inherit" />
+      </button>
     );
 
     if (isLoggedIn && isAuthor) {
