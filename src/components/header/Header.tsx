@@ -35,7 +35,7 @@ function Header({ openMenu }: HeaderProps) {
     );
     const loginButton = (
       <button onClick={() => navigate("/login")}>
-        <LoginIcon fontSize="large" color="secondary" />
+        <LoginIcon fontSize="large" sx={{ color: "green" }} />
       </button>
     );
     const logoutButton = (
