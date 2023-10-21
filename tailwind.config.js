@@ -7,6 +7,10 @@ export default {
       colors: {
         header: "#2D2B2B",
         menu: "#282828",
+        card: "#1b1b1b",
+      },
+      fontSize: {
+        "2xs": "0.5rem",
       },
       animation: {
         slideInLeft: "slideInLeft 0.5s ease-in-out",
