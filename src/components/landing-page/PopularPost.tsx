@@ -8,7 +8,7 @@ function PopularPost({ img, title, author }: PopularPostProps) {
   return (
     <div className={tw_postContainer}>
       <img className={tw_postImg} src={img} />
-      <p className={tw_postTitle}>{"aksfdjkjafjafjioajfidjijfai"}</p>
+      <p className={tw_postTitle}>{`${title}`}</p>
 
       <p className={tw_postAuthor}>
         By:{" "}
@@ -31,7 +31,6 @@ const tw_postContainer = [
   "flex-col",
   "w-28",
   "max-w-28",
-  "items-center",
   "bg-card",
   "pb-2",
   "pt-4",
@@ -45,6 +44,7 @@ const tw_postContainer = [
 ].join(" ");
 
 const tw_postImg = [
+  "self-center",
   "shadow-2xl",
   "border",
   "border-white",
@@ -54,12 +54,11 @@ const tw_postImg = [
 ].join(" ");
 
 const tw_postTitle = [
-  "text-xs",
-  "max-w-full",
-  "pt-2",
+  "text-2xs",
+  "mt-3",
   "font-medium",
-  "h-10",
   "line-clamp-2",
+  "grow",
 ].join(" ");
 
 const tw_postAuthor = [
@@ -67,7 +66,7 @@ const tw_postAuthor = [
   "flex-nowrap",
   "gap-1",
   "max-w-full",
-  "text-2xs",
+  "text-3xs",
   "pt-2",
 ].join(" ");
 

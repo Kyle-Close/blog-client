@@ -31,15 +31,20 @@ function PopularPosts() {
     console.log(popularPostsData);
   }, [popularPostsData]);
 
-  const posts = popularPostsData.map((post: PopularPost) => {
+  const posts = popularPostsData.map((post: PopularPost, key) => {
     return (
-      <PopularPost img={iPhoneImg} title={post.title} author={post.author} />
+      <PopularPost
+        key={key}
+        img={iPhoneImg}
+        title={post.title}
+        author={post.author}
+      />
     );
   });
 
   return (
     <div className="flex flex-col px-4 py-12">
-      <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-red-500">
+      <h3 className="text-lg pl-2 font-semibold bg-clip-text text-transparent bg-gray-50">
         Popular Posts
       </h3>
       <div className="flex pt-4 gap-2">{posts && posts}</div>

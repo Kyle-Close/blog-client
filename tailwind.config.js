@@ -10,7 +10,8 @@ export default {
         card: "#1b1b1b",
       },
       fontSize: {
-        "2xs": "0.5rem",
+        "3xs": "0.5rem",
+        "2xs": "0.6rem",
       },
       animation: {
         slideInLeft: "slideInLeft 0.5s ease-in-out",
