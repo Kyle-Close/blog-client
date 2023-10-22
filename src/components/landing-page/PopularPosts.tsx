@@ -47,7 +47,9 @@ function PopularPosts() {
       <h3 className="text-lg pl-2 font-semibold bg-clip-text text-transparent bg-gray-50">
         Popular Posts
       </h3>
-      <div className="flex pt-4 gap-2">{posts && posts}</div>
+      <div className="test grid pt-4 gap-2 grid-rows-2 grid-cols-3">
+        {posts && posts}
+      </div>
     </div>
   );
 }
