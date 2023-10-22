@@ -1,5 +1,5 @@
 import React from "react";
-import iPhoneImg from "../../assets/iphone.jpg";
+import iPhoneImg from "../../../assets/iphone.jpg";
 import PopularPost from "./PopularPost";
 import axios from "axios";
 
@@ -43,7 +43,7 @@ function PopularPosts() {
   });
 
   return (
-    <div className="flex flex-col px-4 py-12">
+    <div className="flex flex-col px-4 py-12 hover:cursor-pointer">
       <h3 className="text-lg pl-2 font-semibold bg-clip-text text-transparent bg-gray-50">
         Popular Posts
       </h3>

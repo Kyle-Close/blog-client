@@ -1,4 +1,4 @@
-import PopularPosts from "./PopularPosts";
+import PopularPosts from "./popular-posts/PopularPosts";
 
 function LandingPage() {
   return (
