@@ -57,6 +57,7 @@ const tw_popularPostsContainer = [
   "lg:pt-16",
   "sm:pb-16",
   "lg:pb-24",
+  "bg-neutral-200",
 ].join(" ");
 
 const tw_popularPostsTitle = [
@@ -70,8 +71,8 @@ const tw_popularPostsTitle = [
   "bg-gray-50",
   "self-center",
   "bg-gradient-to-b",
-  "from-orange-200",
-  "to-gray-500",
+  "from-black",
+  "to-neutral-500",
 ].join(" ");
 
 const tw_popularPostCardsSection = [

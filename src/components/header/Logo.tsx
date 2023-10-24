@@ -23,6 +23,7 @@ const tw_logoButton = [
   "to-gray-900",
   "p-1",
   "cursor-pointer",
+  "mt-8",
 ].join(" ");
 
 const tw_logoCircle = [
