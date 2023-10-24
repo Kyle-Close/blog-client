@@ -39,7 +39,7 @@ function PopularPosts() {
   });
 
   return (
-    <div className="flex flex-col px-4 py-12 sm:pt-16 lg:pt-20">
+    <div className="flex flex-col px-4 py-12 sm:pt-16 lg:pt-20 sm:pb-16 lg:pb-24">
       <h3 className="text-xl sm:text-2xl lg:text-3xl pl-2 font-semibold bg-clip-text text-transparent bg-gray-50 self-center bg-gradient-to-b from-orange-200 to-gray-500">
         Popular Posts
       </h3>

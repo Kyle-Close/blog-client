@@ -71,7 +71,7 @@ function Header({ openMenu }: HeaderProps) {
   };
 
   return (
-    <div className="bg-header flex justify-center border-b border-white h-16 sm:h-24 shadow-md px-4 sm:px-8">
+    <div className="bg-header flex justify-center border-b border-white shadow-md px-4 sm:px-8 h-32 sm:h-38 sm:min-h-38">
       <div className={tw_headerContainer}>
         <div className={tw_leftSide}>
           <div className={tw_imgContainer}>
@@ -115,7 +115,7 @@ const tw_rightSide = [
   "justify-center",
   "items-center",
   "gap-4",
-  "sm:gap-",
+  "sm:gap-8",
 ].join(" ");
 
 const tw_linksLeftSide = [
