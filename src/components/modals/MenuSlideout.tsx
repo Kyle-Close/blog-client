@@ -7,7 +7,7 @@ interface MenuSlideoutProps {
 }
 
 function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
-  const menuClassNames = getMenuClassNames("left");
+  const menuContainerClassNames = getMenuClassNames("left");
 
   React.useEffect(() => {
     const handleClick = (e: any) => {
@@ -42,8 +42,8 @@ function MenuSlideout({ closeMenu }: MenuSlideoutProps) {
   });
 
   return (
-    <div className={menuClassNames}>
-      <div className="flex gap-4 items-end">
+    <div className={menuContainerClassNames}>
+      <div className={tw_menuHeaderSection}>
         <Logo />
         <h1 className={tw_title}>Blogging w Bits</h1>
       </div>
@@ -109,3 +109,5 @@ const tw_title = [
 const tw_linkContainer = ["pt-8", "pb-4", "border-b"].join(" ");
 
 const tw_link = ["text-lg", "font-semibold"].join(" ");
+
+const tw_menuHeaderSection = ["flex", "gap-4", "items-end"].join(" ");

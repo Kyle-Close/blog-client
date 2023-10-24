@@ -10,7 +10,7 @@ import { UserContextType } from "../../@types/user";
 
 function Signup() {
   const navigate = useNavigate();
-  const { login, user } = React.useContext(UserContext) as UserContextType;
+  const { login } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",

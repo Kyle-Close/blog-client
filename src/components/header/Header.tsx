@@ -71,7 +71,7 @@ function Header({ openMenu }: HeaderProps) {
   };
 
   return (
-    <div className="bg-header flex justify-center border-b border-white shadow-md px-4 sm:px-8 h-32 sm:h-38 sm:min-h-38">
+    <div className={tw_widthWrapper}>
       <div className={tw_headerContainer}>
         <div className={tw_leftSide}>
           <div className={tw_imgContainer}>
@@ -98,6 +98,19 @@ function Header({ openMenu }: HeaderProps) {
 }
 
 export default Header;
+
+const tw_widthWrapper = [
+  "bg-header",
+  "flex",
+  "justify-center",
+  "border-b",
+  "border-white",
+  "shadow-md",
+  "px-4",
+  "sm:px-8",
+  "h-16",
+  "sm:h-38",
+].join(" ");
 
 const tw_headerContainer = [
   "flex",
