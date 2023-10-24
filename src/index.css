@@ -30,8 +30,3 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-.grid-item:nth-child(n + 4) {
-  grid-column: span 1; /* Two columns in the second row */
-  justify-content: center; /* Center content horizontally */
-}

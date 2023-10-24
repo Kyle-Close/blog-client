@@ -29,18 +29,29 @@ function capitalizeFirstLetter(str: string) {
 const tw_postContainer = [
   "flex",
   "flex-col",
-  "w-28",
-  "max-w-28",
+  "basis-32",
+  "sm:basis-40",
+  "lg:basis-52",
+  "max-w-[8rem]",
+  "sm:max-w-[10rem]",
+  "lg:max-w-[14rem]",
   "bg-card",
   "pb-2",
+  "sm:py-6",
+  "lg:pt-10",
+  "lg:pb-6",
   "pt-4",
-  "px-2",
+  "px-3",
+  "sm:px-6",
+  "lg:px-8",
   "rounded-lg",
   "shadow-lg",
   "transform",
   "hover:scale-105",
   "duration-300",
   "ease-in-out",
+  "hover:cursor-pointer",
+  "hover:bg-neutral-700",
 ].join(" ");
 
 const tw_postImg = [
@@ -50,12 +61,18 @@ const tw_postImg = [
   "border-white",
   "rounded-lg",
   "w-20",
+  "sm:w-24",
+  "lg:w-32",
   "opacity-75",
 ].join(" ");
 
 const tw_postTitle = [
-  "text-2xs",
+  "text-xs",
+  "sm:text-sm",
+  "lg:text-md",
   "mt-3",
+  "sm:mt-6",
+  "lg:mt-8",
   "font-medium",
   "line-clamp-2",
   "grow",
@@ -66,12 +83,16 @@ const tw_postAuthor = [
   "flex-nowrap",
   "gap-1",
   "max-w-full",
-  "text-3xs",
+  "text-2xs",
+  "sm:text-xs",
+  "lg:text-sm",
   "pt-2",
+  "font-medium",
 ].join(" ");
 
 const tw_postAuthorSpan = [
   "text-red-600",
   "text-ellipsis",
   "overflow-hidden",
+  "font-normal",
 ].join(" ");

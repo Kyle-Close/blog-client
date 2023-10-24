@@ -27,10 +27,6 @@ function PopularPosts() {
     getPosts();
   }, []);
 
-  React.useEffect(() => {
-    console.log(popularPostsData);
-  }, [popularPostsData]);
-
   const posts = popularPostsData.map((post: PopularPost, key) => {
     return (
       <PopularPost
@@ -43,11 +39,11 @@ function PopularPosts() {
   });
 
   return (
-    <div className="flex flex-col px-4 py-12 hover:cursor-pointer">
-      <h3 className="text-lg pl-2 font-semibold bg-clip-text text-transparent bg-gray-50">
+    <div className="flex flex-col px-4 py-12 sm:pt-16 lg:pt-20">
+      <h3 className="text-xl sm:text-2xl lg:text-3xl pl-2 font-semibold bg-clip-text text-transparent bg-gray-50 self-center bg-gradient-to-b from-orange-200 to-gray-500">
         Popular Posts
       </h3>
-      <div className="test grid pt-4 gap-2 grid-rows-2 grid-cols-3">
+      <div className="pt-4 lg:pt-8 flex flex-wrap gap-4 justify-center flex-1">
         {posts && posts}
       </div>
     </div>
