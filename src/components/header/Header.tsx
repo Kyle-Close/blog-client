@@ -71,25 +71,27 @@ function Header({ openMenu }: HeaderProps) {
   };
 
   return (
-    <div className={tw_headerContainer}>
-      <div className={tw_leftSide}>
-        <div className={tw_imgContainer}>
-          <Menu openMenu={openMenu} menuImg={menuImg} />
+    <div className="bg-header flex justify-center border-b border-white h-16 sm:h-24 shadow-md px-4 sm:px-8">
+      <div className={tw_headerContainer}>
+        <div className={tw_leftSide}>
+          <div className={tw_imgContainer}>
+            <Menu openMenu={openMenu} menuImg={menuImg} />
+          </div>
+          <div className={tw_linksLeftSide}>
+            <a href="/">Web Dev</a>
+            <a href="/">Electronics</a>
+            <a href="/">Gaming</a>
+          </div>
         </div>
-        <div className={tw_linksLeftSide}>
-          <a href="/">Web Dev</a>
-          <a href="/">Electronics</a>
-          <a href="/">Gaming</a>
+        <div className={tw_rightSide}>
+          <a className={tw_allPosts} href="/">
+            All Posts
+          </a>
+          <div className={tw_buttonContainer}>{GetHeaderButtons()}</div>
         </div>
-      </div>
-      <div className={tw_rightSide}>
-        <a className={tw_allPosts} href="/">
-          All Posts
-        </a>
-        <div className={tw_buttonContainer}>{GetHeaderButtons()}</div>
-      </div>
-      <div className={tw_logoContainer}>
-        <Logo />
+        <div className={tw_logoContainer}>
+          <Logo />
+        </div>
       </div>
     </div>
   );
@@ -101,15 +103,9 @@ const tw_headerContainer = [
   "flex",
   "justify-between",
   "items-center",
-  "border-b",
-  "border-white",
-  "h-16",
-  "sm:h-24",
-  "bg-header",
-  "shadow-md",
-  "px-4",
-  "sm:px-10",
   "relative",
+  "max-w-screen-lg",
+  "grow",
 ].join(" ");
 
 const tw_imgContainer = ["sm:hidden", "w-8"].join(" ");
