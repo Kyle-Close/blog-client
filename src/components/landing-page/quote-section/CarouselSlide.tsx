@@ -31,14 +31,16 @@ export default CarouselSlide;
 const tw_carouselContentContainer = [
   'flex',
   'flex-col',
+  'sm:flex-row',
+  'sm:justify-center',
   'items-center',
   'py-8',
   'gap-8',
 ].join(' ');
 
 const tw_personImageContainer = [
-  'basis-2/5',
-  'max-w-[40%]',
+  'w-32',
+  'sm:w-40',
   'border-2',
   'rounded-md',
   'shadow-sm',

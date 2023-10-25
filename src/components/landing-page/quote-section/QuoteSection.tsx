@@ -17,7 +17,7 @@ function QuoteSection() {
 
   return (
     <div className={tw_quoteSectionWrapper}>
-      <div className='w-full'>
+      <div className='w-full lg:w-1/2'>
         <Carousel
           infiniteLoop
           interval={5000}
