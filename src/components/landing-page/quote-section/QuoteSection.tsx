@@ -33,6 +33,8 @@ function QuoteSection() {
 
 export default QuoteSection;
 
-const tw_quoteSectionWrapper = ['bg-zinc-800', 'flex', 'justify-center'].join(
-  ' '
-);
+const tw_quoteSectionWrapper = [
+  'bg-neutral-300',
+  'flex',
+  'justify-center',
+].join(' ');

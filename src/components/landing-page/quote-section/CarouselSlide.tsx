@@ -42,9 +42,8 @@ const tw_personImageContainer = [
   'w-32',
   'sm:w-40',
   'border-2',
+  'border-black',
   'rounded-md',
-  'shadow-sm',
-  'shadow-white',
 ].join(' ');
 
 const tw_quoteContainer = [
@@ -59,6 +58,8 @@ const tw_quoteContainer = [
   'w-64',
   'rounded-lg',
   'text-sm',
+  'shadow-md',
+  'shadow-black',
 ].join(' ');
 
 const tw_quoteIconContainer = ['w-10'].join(' ');

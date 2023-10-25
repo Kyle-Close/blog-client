@@ -1,7 +1,7 @@
-import React from "react";
-import iPhoneImg from "../../../assets/iphone.jpg";
-import PopularPost from "./PopularPost";
-import axios from "axios";
+import React from 'react';
+import iPhoneImg from '../../../assets/iphone.jpg';
+import PopularPost from './PopularPost';
+import axios from 'axios';
 
 interface PopularPost {
   title: string;
@@ -15,7 +15,7 @@ function PopularPosts() {
   // Hit the API to get popular posts (seperate table for this?)
   React.useEffect(() => {
     const fetchPopularPosts = async () => {
-      const response = await axios.get("http://localhost:3000/popular-posts");
+      const response = await axios.get('http://localhost:3000/popular-posts');
       return response;
     };
     const getPosts = async () => {
@@ -49,38 +49,40 @@ function PopularPosts() {
 export default PopularPosts;
 
 const tw_popularPostsContainer = [
-  "flex",
-  "flex-col",
-  "px-4",
-  "py-12",
-  "sm:pt-16",
-  "lg:pt-16",
-  "sm:pb-16",
-  "lg:pb-24",
-  "bg-neutral-200",
-].join(" ");
+  'flex',
+  'flex-col',
+  'gap-4',
+  'px-4',
+  'py-12',
+  'sm:pt-16',
+  'lg:pt-16',
+  'sm:pb-16',
+  'lg:pb-24',
+  'bg-neutral-800',
+].join(' ');
 
 const tw_popularPostsTitle = [
-  "text-xl",
-  "sm:text-2xl",
-  "lg:text-3xl",
-  "pl-2",
-  "font-semibold",
-  "bg-clip-text",
-  "text-transparent",
-  "bg-gray-50",
-  "self-center",
-  "bg-gradient-to-b",
-  "from-black",
-  "to-neutral-500",
-].join(" ");
+  'bg-neutral-500',
+  'text-xl',
+  'sm:text-2xl',
+  'lg:text-3xl',
+  'font-semibold',
+  'self-center',
+  'px-6',
+  'py-2',
+  'bg-clip-text',
+  'text-transparent',
+  'bg-gradient-to-r',
+  'from-rose-200',
+  'to-rose-700',
+].join(' ');
 
 const tw_popularPostCardsSection = [
-  "pt-4",
-  "lg-pt-8",
-  "flex",
-  "flex-wrap",
-  "gap-4",
-  "justify-center",
-  "flex-1",
-].join(" ");
+  'pt-4',
+  'lg-pt-8',
+  'flex',
+  'flex-wrap',
+  'gap-4',
+  'justify-center',
+  'flex-1',
+].join(' ');
