@@ -48,11 +48,13 @@ function RecentPosts() {
 
   return (
     <div className={tw_recentPostsContainer}>
-      <h3 className={tw_recentPostsTitle}>Recent Posts</h3>
-      <div className={tw_postsContainer}>{Posts && Posts}</div>
-      <a href='/' className={tw_link}>
-        Want more? See all posts here.
-      </a>
+      <div className='flex flex-col gap-4 sm:gap-6'>
+        <h3 className={tw_recentPostsTitle}>Recent Posts</h3>
+        <div className={tw_postsContainer}>{Posts && Posts}</div>
+        <a href='/' className={tw_link}>
+          Want more? See all posts here.
+        </a>
+      </div>
     </div>
   );
 }
@@ -77,12 +79,11 @@ const tw_recentPostsTitle = ['text-2xl', 'sm:text-3xl', 'font-medium'].join(
 );
 
 const tw_postsContainer = [
-  'flex',
-  'flex-col',
+  'grid',
+  'grid-cols-1',
+  'md:grid-cols-2',
   'gap-4',
-  'sm:max-w-lg',
-  'md:max-w-xl',
-  'lg:max-w-2xl',
+  'max-w-5xl',
 ].join(' ');
 
 const tw_link = ['text-sky-600', 'font-medium'].join(' ');
