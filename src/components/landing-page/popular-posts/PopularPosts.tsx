@@ -40,8 +40,10 @@ function PopularPosts() {
 
   return (
     <div className={tw_popularPostsContainer}>
-      <h3 className={tw_popularPostsTitle}>Popular Posts</h3>
-      <div className={tw_popularPostCardsSection}>{posts && posts}</div>
+      <div className='flex flex-col'>
+        <h3 className={tw_popularPostsTitle}>Popular Posts</h3>
+        <div className={tw_popularPostCardsSection}>{posts && posts}</div>
+      </div>
     </div>
   );
 }
@@ -62,7 +64,6 @@ const tw_popularPostsContainer = [
 ].join(' ');
 
 const tw_popularPostsTitle = [
-  'bg-neutral-500',
   'text-xl',
   'sm:text-2xl',
   'lg:text-3xl',
@@ -70,11 +71,6 @@ const tw_popularPostsTitle = [
   'self-center',
   'px-6',
   'py-2',
-  'bg-clip-text',
-  'text-transparent',
-  'bg-gradient-to-r',
-  'from-rose-200',
-  'to-rose-700',
 ].join(' ');
 
 const tw_popularPostCardsSection = [
@@ -84,5 +80,4 @@ const tw_popularPostCardsSection = [
   'flex-wrap',
   'gap-4',
   'justify-center',
-  'flex-1',
 ].join(' ');

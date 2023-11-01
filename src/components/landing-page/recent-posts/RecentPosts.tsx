@@ -86,4 +86,4 @@ const tw_postsContainer = [
   'max-w-5xl',
 ].join(' ');
 
-const tw_link = ['text-sky-600', 'font-medium'].join(' ');
+const tw_link = ['text-sky-600', 'font-medium', 'md:text-lg'].join(' ');
