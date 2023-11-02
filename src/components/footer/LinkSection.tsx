@@ -1,18 +1,43 @@
 function LinkSection() {
   return (
-    <div className='flex gap-8'>
+    <div className='flex gap-8 lg:gap-16'>
       <div className='flex flex-col gap-2'>
-        <h4 className='font-semibold underline text-md'>Developer</h4>
-        <a className='text-sm'>About</a>
-        <a className='text-sm'>Github</a>
-        <a className='text-sm'>Portfolio</a>
+        <h4 className={tw_linkHeading}>Developer</h4>
+        <a href='/' className={tw_link}>
+          About
+        </a>
+        <a href='/' className={tw_link}>
+          Github
+        </a>
+        <a href='/' className={tw_link}>
+          Portfolio
+        </a>
       </div>
       <div className='flex flex-col gap-2'>
-        <h4 className='font-semibold underline text-md'>Authors</h4>
-        <a className='text-sm'>Dashboard</a>
+        <h4 className={tw_linkHeading}>Authors</h4>
+        <a href='/' className={tw_link}>
+          Dashboard
+        </a>
       </div>
     </div>
   );
 }
 
 export default LinkSection;
+
+const tw_linkHeading = [
+  'font-semibold',
+  'underline',
+  'text-sm',
+  'sm:text-md',
+  'md:text-lg',
+  'lg:text-xl',
+].join(' ');
+
+const tw_link = [
+  'text-xs',
+  'sm:text-sm',
+  'md:text-md',
+  'lg:text-lg',
+  'text-blue-500',
+].join(' ');
