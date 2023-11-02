@@ -32,6 +32,7 @@ const tw_widthWrapper = [
   'bg-neutral-800',
   'text-black',
   'p-10',
+  'lg:p-18',
 ].join(' ');
 
 const tw_container = [
@@ -58,4 +59,6 @@ const tw_body = [
   'shadow-lg',
   'shadow-neutral-800',
   'sm:font-medium',
+  'md:text-md',
+  'lg:text-lg',
 ].join(' ');

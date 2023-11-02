@@ -35,12 +35,15 @@ const tw_carouselContentContainer = [
   'sm:justify-center',
   'items-center',
   'py-8',
+  'md:py-16',
+  'lg:py-20',
   'gap-8',
 ].join(' ');
 
 const tw_personImageContainer = [
   'w-32',
   'sm:w-40',
+  'md:w-52',
   'border-2',
   'border-black',
   'rounded-md',
@@ -48,6 +51,7 @@ const tw_personImageContainer = [
 
 const tw_quoteContainer = [
   'p-4',
+  'md:p-8',
   'mb-4',
   'text-start',
   'flex',
@@ -56,8 +60,12 @@ const tw_quoteContainer = [
   'gap-4',
   'bg-slate-900',
   'w-64',
+  'md:w-72',
+  'xl:w-96',
   'rounded-lg',
   'text-sm',
+  'md:text-md',
+  'lg:text-lg',
   'shadow-md',
   'shadow-black',
 ].join(' ');
