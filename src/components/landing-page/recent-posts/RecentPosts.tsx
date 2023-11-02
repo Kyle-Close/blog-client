@@ -35,9 +35,10 @@ function RecentPosts() {
     setupData();
   }, []);
 
-  const Posts = recentPostData?.posts.map((post) => {
+  const Posts = recentPostData?.posts.map((post, key) => {
     return (
       <RecentPost
+        key={key}
         img={officeImg}
         title={post.title}
         content={post.content}
@@ -69,6 +70,8 @@ const tw_recentPostsContainer = [
   'p-4',
   'py-6',
   'sm:py-10',
+  'md:py-16',
+  'lg:py-20',
   'text-black',
   'gap-4',
   'sm:gap-8',

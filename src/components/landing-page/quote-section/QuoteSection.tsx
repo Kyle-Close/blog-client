@@ -4,9 +4,10 @@ import { QuoteData } from '../../../data/quotes';
 import { Carousel } from 'react-responsive-carousel';
 
 function QuoteSection() {
-  const Slides = QuoteData.map((data) => {
+  const Slides = QuoteData.map((data, key) => {
     return (
       <CarouselSlide
+        key={key}
         authorImg={data.authorImg}
         quote={data.quote}
         authorFullName={data.authorFullName}
