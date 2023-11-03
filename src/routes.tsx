@@ -1,11 +1,13 @@
-import App from "./App";
-import Signup from "./components/signup/Signup";
-import Login from "./components/login/Login";
-import LandingPage from "./components/landing-page/LandingPage";
+import App from './App';
+import Signup from './components/signup/Signup';
+import Login from './components/login/Login';
+import LandingPage from './components/landing-page/LandingPage';
+import CreatePost from './components/create-post/CreatePost';
+import Post from './components/post/Post';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     element: (
       <App>
         <LandingPage />
@@ -13,7 +15,7 @@ const routes = [
     ),
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: (
       <App>
         <Signup />
@@ -21,10 +23,26 @@ const routes = [
     ),
   },
   {
-    path: "/login",
+    path: '/login',
     element: (
       <App>
         <Login />
+      </App>
+    ),
+  },
+  {
+    path: '/create-post',
+    element: (
+      <App>
+        <CreatePost />
+      </App>
+    ),
+  },
+  {
+    path: '/posts/:id',
+    element: (
+      <App>
+        <Post />
       </App>
     ),
   },
