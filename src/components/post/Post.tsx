@@ -1,4 +1,3 @@
-import Markdown from 'react-markdown';
 import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -6,23 +5,36 @@ import { useParams } from 'react-router-dom';
 function Post() {
   const { id } = useParams();
   const [markdown, setMarkdown] = React.useState<string | null>(null);
+
   React.useEffect(() => {
     const fetchMarkdown = async () => {
-      return await axios.get(`http://localhost:3000/posts/${id}`);
-    };
-
-    const setMarkdownData = async () => {
-      const response: any = await fetchMarkdown();
-      if (response.status === 200) {
-        const markdown = response.data.content;
-        setMarkdown(markdown);
+      try {
+        const response = await axios.get(`http://localhost:3000/posts/${id}`);
+        if (response.status === 200) {
+          const fetchedMarkdown = response.data.content;
+          setMarkdown(fetchedMarkdown);
+        }
+      } catch (error) {
+        console.error('Error fetching markdown:', error);
       }
     };
 
-    setMarkdownData();
-  }, []);
+    fetchMarkdown();
+  }, [id]);
 
-  return <Markdown>{markdown && markdown}</Markdown>;
+  const createMarkup = (htmlString: string) => {
+    return { __html: htmlString };
+  };
+
+  return (
+    <div>
+      {markdown ? (
+        <div dangerouslySetInnerHTML={createMarkup(markdown)}></div>
+      ) : (
+        'Loading...'
+      )}
+    </div>
+  );
 }
 
 export default Post;
