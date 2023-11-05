@@ -8,30 +8,40 @@ import TextField from '@mui/material/TextField';
 
 function CreatePost() {
   const editorRef = useRef<any>(null);
+
+  const inputStyle = {
+    color: 'white',
+    fontWeight: '600',
+    backgroundColor: '#2e2e2e',
+  };
+
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
+
   return (
     <Box component='form' className={tw_wrapper}>
       <div className={tw_container}>
         <div className={tw_top}>
-          <h3 className={tw_title}>Create New Post</h3>
-          <Button onClick={log} variant='contained' endIcon={<SendIcon />}>
-            Create Post
-          </Button>
+          <div className={tw_titleAndButton}>
+            <h3 className={tw_title}>Create New Post</h3>
+            <Button onClick={log} variant='contained' endIcon={<SendIcon />}>
+              Post
+            </Button>
+          </div>
+          <TextField
+            focused
+            label='Title'
+            variant='outlined'
+            inputProps={{ style: inputStyle }}
+          />
         </div>
-        <TextField
-          sx={{ border: '1px solid white', borderRadius: '4px' }}
-          id='outlined'
-          label='Title'
-          variant='outlined'
-        />
+
         <Editor
           apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
           onInit={(evt, editor) => (editorRef.current = editor)}
-          initialValue='<p>This is the initial content of the editor.</p>'
           init={{
             height: '100%',
           }}
@@ -59,7 +69,9 @@ const tw_container = [
   'xl:py-16',
 ].join(' ');
 
-const tw_top = ['flex', 'justify-between', 'items-end'].join(' ');
+const tw_top = ['px-4', 'flex', 'flex-col', 'gap-4'].join(' ');
+
+const tw_titleAndButton = ['flex', 'justify-between', 'items-end'].join(' ');
 
 const tw_title = ['text-lg', 'font-semibold', 'md:text-xl', 'lg:text-2xl'].join(
   ' '
