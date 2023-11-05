@@ -1,16 +1,18 @@
-import React from "react";
-import jwt_decode from "jwt-decode";
+import React from 'react';
+import jwt_decode from 'jwt-decode';
+import ThemeProvider from '@mui/system/ThemeProvider';
 
 // Components
-import Header from "./components/header/Header";
-import MenuSlideout from "./components/modals/MenuSlideout";
+import Header from './components/header/Header';
+import MenuSlideout from './components/modals/MenuSlideout';
 
 // CSS
-import "./index.css";
+import './index.css';
 
 // Context
-import { UserContext } from "./context/userContext";
-import { UserContextType } from "./@types/user";
+import { UserContext } from './context/userContext';
+import { UserContextType } from './@types/user';
+import { theme } from './Theme';
 
 function App({ children }: any) {
   const { login } = React.useContext(UserContext) as UserContextType;
@@ -28,7 +30,7 @@ function App({ children }: any) {
 
   React.useEffect(() => {
     const getToken = async () => {
-      return localStorage.getItem("token");
+      return localStorage.getItem('token');
     };
 
     const fetchData = async () => {
@@ -41,7 +43,7 @@ function App({ children }: any) {
           const { _id, username, isAuthor } = decodedToken;
           login({ id: _id, username, isAuthor }, token);
         } catch (error) {
-          console.error("Error decoding token:", error);
+          console.error('Error decoding token:', error);
         }
       }
     };
@@ -50,12 +52,12 @@ function App({ children }: any) {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {displayMenu && <MenuSlideout closeMenu={closeMenu} />}
 
       <Header openMenu={openMenu} />
       {children}
-    </>
+    </ThemeProvider>
   );
 }
 
