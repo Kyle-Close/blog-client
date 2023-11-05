@@ -1,6 +1,7 @@
 import React from 'react';
 import jwt_decode from 'jwt-decode';
 import ThemeProvider from '@mui/system/ThemeProvider';
+import axios from 'axios';
 
 // Components
 import Header from './components/header/Header';
@@ -17,6 +18,10 @@ import { theme } from './Theme';
 function App({ children }: any) {
   const { login } = React.useContext(UserContext) as UserContextType;
   const [displayMenu, setDisplayMenu] = React.useState(false);
+
+  axios.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${localStorage.getItem('token')}`;
 
   const openMenu = () => {
     setTimeout(() => {

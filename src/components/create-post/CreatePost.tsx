@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -5,9 +6,18 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
+import axios from 'axios';
 
 function CreatePost() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const editorRef = useRef<any>(null);
+  const [title, setTitle] = React.useState<string | null>(null);
 
   const inputStyle = {
     color: 'white',
@@ -15,19 +25,70 @@ function CreatePost() {
     backgroundColor: '#2e2e2e',
   };
 
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const submitPost = async (e: any) => {
+    e.preventDefault();
+    if (!editorRef.current) return;
+
+    const content = editorRef.current.getContent();
+    const postData = { title: title, content: content };
+
+    try {
+      const res: any = await axios.post(
+        'http://localhost:3000/posts',
+        postData
+      );
+
+      const resMessage = res.response.data.message;
+      console.log(resMessage);
+    } catch (error: any) {
+      if (error.response) {
+        const msg = error.response.data.message;
+        console.log(msg);
+        handleOpen();
+      }
     }
   };
 
   return (
     <Box component='form' className={tw_wrapper}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={modalStyle}>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            Text in a modal
+          </Typography>
+          <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
       <div className={tw_container}>
         <div className={tw_top}>
           <div className={tw_titleAndButton}>
             <h3 className={tw_title}>Create New Post</h3>
-            <Button onClick={log} variant='contained' endIcon={<SendIcon />}>
+            <Button
+              disabled={title ? false : true}
+              type='submit'
+              onClick={submitPost}
+              variant='contained'
+              endIcon={<SendIcon />}
+            >
               Post
             </Button>
           </div>
@@ -36,6 +97,7 @@ function CreatePost() {
             label='Title'
             variant='outlined'
             inputProps={{ style: inputStyle }}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
