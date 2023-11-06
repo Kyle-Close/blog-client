@@ -48,7 +48,7 @@ function CreatePost() {
         const btnText = 'See Post';
         const btnLink = '/';
 
-        setModalDataState({ msg, btnText, btnLink });
+        setModalDataState({ msg, btnText, btnLink, isSuccess: true });
         handleOpen();
       }
     } catch (error: any) {
@@ -70,12 +70,14 @@ function CreatePost() {
         msg: 'Must be an author to create a post.',
         btnText: 'Apply Now',
         btnLink: '/',
+        isSuccess: false,
       };
     }
     return {
       msg: 'Must be logged in to create a post',
       btnText: 'Login',
       btnLink: '/login',
+      isSuccess: false,
     };
   };
 
@@ -95,6 +97,7 @@ function CreatePost() {
           msg={modalData.msg}
           btnText={modalData.btnText}
           btnLink={modalData.btnLink}
+          isSuccess
         />
       )}
       <div className={tw_container}>

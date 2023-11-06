@@ -4,6 +4,7 @@ interface ModalData {
   msg: string;
   btnText: string;
   btnLink: string;
+  isSuccess: boolean;
 }
 
 export function useModal() {

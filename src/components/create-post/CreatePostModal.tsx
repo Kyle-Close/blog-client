@@ -3,6 +3,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import BookIcon from '@mui/icons-material/Book';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface CreatePostModalProps {
   open: boolean;
@@ -10,6 +12,7 @@ interface CreatePostModalProps {
   msg: string;
   btnText: string;
   btnLink: string;
+  isSuccess: boolean;
 }
 
 function CreatePostModal({
@@ -18,6 +21,7 @@ function CreatePostModal({
   msg,
   btnText,
   btnLink,
+  isSuccess,
 }: CreatePostModalProps) {
   const modalStyle = {
     position: 'absolute',
@@ -29,12 +33,20 @@ function CreatePostModal({
     color: '#e6e3e3',
     border: '2px solid #000',
     boxShadow: 24,
-    py: 6,
+    pt: 2,
+    pb: 4,
     px: 4,
     display: 'flex',
     flexDirection: 'column',
-    gap: '3rem',
-    textAlign: 'center',
+    gap: 4,
+  };
+
+  const modalIcon = () => {
+    if (isSuccess) {
+      return <CheckCircleOutlineIcon color='success' fontSize='large' />;
+    } else {
+      return <ErrorIcon color='error' fontSize='large' />;
+    }
   };
 
   return (
@@ -45,10 +57,8 @@ function CreatePostModal({
       aria-describedby='modal-modal-description'
     >
       <Box sx={modalStyle}>
-        <Typography
-          id='modal-modal-description'
-          sx={{ mt: 2, fontWeight: 500 }}
-        >
+        {modalIcon()}
+        <Typography id='modal-modal-description' sx={{ fontWeight: 500 }}>
           {msg}
         </Typography>
         <Button
