@@ -1,23 +1,40 @@
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import BookIcon from '@mui/icons-material/Book';
 
 interface CreatePostModalProps {
   open: boolean;
   handleClose: () => void;
+  msg: string;
+  btnText: string;
+  btnLink: string;
 }
 
-function CreatePostModal({ open, handleClose }: CreatePostModalProps) {
+function CreatePostModal({
+  open,
+  handleClose,
+  msg,
+  btnText,
+  btnLink,
+}: CreatePostModalProps) {
   const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
+    width: '90%',
+    bgcolor: '#282828',
+    color: '#e6e3e3',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    py: 6,
+    px: 4,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '3rem',
+    textAlign: 'center',
   };
 
   return (
@@ -28,12 +45,20 @@ function CreatePostModal({ open, handleClose }: CreatePostModalProps) {
       aria-describedby='modal-modal-description'
     >
       <Box sx={modalStyle}>
-        <Typography id='modal-modal-title' variant='h6' component='h2'>
-          Text in a modal
+        <Typography
+          id='modal-modal-description'
+          sx={{ mt: 2, fontWeight: 500 }}
+        >
+          {msg}
         </Typography>
-        <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        <Button
+          color='secondary'
+          variant='contained'
+          href={btnLink}
+          endIcon={<BookIcon />}
+        >
+          {btnText}
+        </Button>
       </Box>
     </Modal>
   );

@@ -9,10 +9,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
+// Context
+import { UserContext } from '../../context/userContext';
+import { UserContextType } from '../../@types/user';
+
 import axios from 'axios';
 
 function CreatePost() {
-  const { open, handleOpen, handleClose } = useModal();
+  const { user } = React.useContext(UserContext) as UserContextType;
+  const { open, handleOpen, handleClose, modalData, setModalDataState } =
+    useModal();
 
   const editorRef = useRef<any>(null);
   const [title, setTitle] = React.useState<string | null>(null);
@@ -25,31 +31,72 @@ function CreatePost() {
 
   const submitPost = async (e: any) => {
     e.preventDefault();
+
     if (!editorRef.current) return;
 
     const content = editorRef.current.getContent();
     const postData = { title: title, content: content };
 
     try {
-      const res: any = await axios.post(
+      const status = await GetCreatePostStatus(
         'http://localhost:3000/posts',
         postData
       );
 
-      const resMessage = res.response.data.message;
-      console.log(resMessage);
+      if (status === 201) {
+        const msg = 'Post successfully created!';
+        const btnText = 'See Post';
+        const btnLink = '/';
+
+        setModalDataState({ msg, btnText, btnLink });
+        handleOpen();
+      }
     } catch (error: any) {
       if (error.response) {
-        const msg = error.response.data.message;
-        console.log(msg);
-        handleOpen();
+        const { status } = error.response;
+        console.log(status);
+
+        if (status >= 400) {
+          setModalDataState(GetErrMsgData());
+          handleOpen();
+        }
       }
     }
   };
 
+  const GetErrMsgData = () => {
+    if (user) {
+      return {
+        msg: 'Must be an author to create a post.',
+        btnText: 'Apply Now',
+        btnLink: '/',
+      };
+    }
+    return {
+      msg: 'Must be logged in to create a post',
+      btnText: 'Login',
+      btnLink: '/login',
+    };
+  };
+
+  const GetCreatePostStatus = async (url: string, postData: any) => {
+    const res: any = await axios.post(url, postData);
+
+    const { status } = res;
+    return status;
+  };
+
   return (
     <Box component='form' className={tw_wrapper}>
-      <CreatePostModal open={open} handleClose={handleClose} />
+      {open && modalData && (
+        <CreatePostModal
+          open={open}
+          handleClose={handleClose}
+          msg={modalData.msg}
+          btnText={modalData.btnText}
+          btnLink={modalData.btnLink}
+        />
+      )}
       <div className={tw_container}>
         <div className={tw_top}>
           <div className={tw_titleAndButton}>
