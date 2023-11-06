@@ -6,6 +6,8 @@ import BookIcon from '@mui/icons-material/Book';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
+import { useTheme } from '@mui/material/styles';
+
 interface CreatePostModalProps {
   open: boolean;
   handleClose: () => void;
@@ -23,12 +25,15 @@ function CreatePostModal({
   btnLink,
   isSuccess,
 }: CreatePostModalProps) {
+  const theme = useTheme();
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '90%',
+    maxWidth: '500px',
     bgcolor: '#282828',
     color: '#e6e3e3',
     border: '2px solid #000',
@@ -39,6 +44,15 @@ function CreatePostModal({
     display: 'flex',
     flexDirection: 'column',
     gap: 4,
+    [theme.breakpoints.up('sm')]: {
+      pt: 3,
+      width: '50%',
+      fontSize: '1.2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '30%',
+      fontSize: '1.2rem',
+    },
   };
 
   const modalIcon = () => {
@@ -58,9 +72,7 @@ function CreatePostModal({
     >
       <Box sx={modalStyle}>
         {modalIcon()}
-        <Typography id='modal-modal-description' sx={{ fontWeight: 500 }}>
-          {msg}
-        </Typography>
+        <p>{msg}</p>
         <Button
           color='secondary'
           variant='contained'
