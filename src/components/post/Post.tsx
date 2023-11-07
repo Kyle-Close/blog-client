@@ -27,13 +27,13 @@ function Post() {
   };
 
   return (
-    <div className='flex grow justify-center'>
-      <div className='flex flex-col pt-10 px-4 bg-card shadow-xl shadow-black'>
-        <div className='flex flex-col items-center gap-2 pb-4 border-b border-gray-600'>
-          <h3 className='text-2xl text-center'>
+    <div className={tw_wrapper}>
+      <div className={tw_postContainer}>
+        <div className={tw_postHeader}>
+          <h3 className={tw_title}>
             What is a Digital Product Manager? Role Overview, Skills & Salary
           </h3>
-          <div className='flex gap-2 justify-between flex-wrap text-xs text-gray-300'>
+          <div className={tw_authorAndDate}>
             <p>
               <span className='font-semibold'>BY</span> NATASCHA ASBERGER
             </p>
@@ -55,3 +55,46 @@ function Post() {
 }
 
 export default Post;
+
+const tw_wrapper = ['flex', 'grow', 'justify-center'].join(' ');
+
+const tw_postContainer = [
+  'flex',
+  'flex-col',
+  'md:gap-4',
+  'lg:gap-8',
+  'pt-10',
+  'px-4',
+  'bg-card',
+  'shadow-xl',
+  'shadow-black',
+  'sm:px-8',
+  'sm:pt-16',
+  'xl:w-1/2',
+].join(' ');
+
+const tw_postHeader = [
+  'flex',
+  'flex-col',
+  'items-center',
+  'gap-2',
+  'xl:gap-6',
+  'pb-4',
+  'border-b',
+  'border-gray-600',
+].join(' ');
+
+const tw_title = ['text-2xl', 'md:text-3xl', 'text-center'].join(' ');
+
+const tw_authorAndDate = [
+  'flex',
+  'gap-2',
+  'sm:gap-4',
+  'md:gap-8',
+  'lg:gap-12',
+  'justify-between',
+  'flex-wrap',
+  'text-xs',
+  'md:text-sm',
+  'text-gray-300',
+].join(' ');
