@@ -4,6 +4,7 @@ import Login from './components/login/Login';
 import LandingPage from './components/landing-page/LandingPage';
 import CreatePost from './components/create-post/CreatePost';
 import Post from './components/post/Post';
+import PostGroup from './components/post-group/PostGroup';
 
 const routes = [
   {
@@ -43,6 +44,14 @@ const routes = [
     element: (
       <App>
         <Post />
+      </App>
+    ),
+  },
+  {
+    path: '/posts/category/:id',
+    element: (
+      <App>
+        <PostGroup />
       </App>
     ),
   },
