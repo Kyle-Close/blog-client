@@ -16,19 +16,16 @@ import { UserContextType } from '../../@types/user';
 
 import axios from 'axios';
 
+export interface IPostData {}
+
 function CreatePost() {
   const { user } = React.useContext(UserContext) as UserContextType;
   const { open, handleOpen, handleClose, modalData, setModalDataState } =
     useModal();
 
   const editorRef = useRef<any>(null);
+  const [formData, setFormData] = React.useState<IPostData | null>(null);
   const [title, setTitle] = React.useState<string | null>(null);
-
-  const inputStyle = {
-    color: 'white',
-    fontWeight: '600',
-    backgroundColor: '#2e2e2e',
-  };
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -37,7 +34,6 @@ function CreatePost() {
 
     const content = editorRef.current.getContent();
     const postData = { title: title, content: content };
-    console.dir(postData);
 
     try {
       const status = await GetCreatePostStatus(
@@ -103,10 +99,10 @@ function CreatePost() {
       )}
 
       <div className={tw_container}>
-        <div className='px-4 pt-10 flex flex-row-reverse gap-2 items-end flex-wrap justify-center'>
+        <div className={tw_top}>
           <div className='flex flex-col gap-2'>
             <PublishCheckbox />
-            <SubmitButton />
+            <SubmitButton submitPost={submitPost} />
           </div>
           <CategoryDropdown />
           <TitleInput />
@@ -139,4 +135,15 @@ const tw_container = [
   'lg:py-14',
   'xl:max-w-5xl',
   'xl:py-16',
+].join(' ');
+
+const tw_top = [
+  'px-4',
+  'pt-10',
+  'flex',
+  'flex-row-reverse',
+  'gap-2',
+  'items-end',
+  'flex-wrap',
+  'justify-center',
 ].join(' ');
