@@ -7,9 +7,9 @@ import CreatePostModal from './CreatePostModal';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import CategoryDropdown from './CategoryDropdown';
+import TitleInput from './TitleInput';
+import SubmitButton from './SubmitButton';
 
 // Context
 import { UserContext } from '../../context/userContext';
@@ -103,39 +103,9 @@ function CreatePost() {
         />
       )}
       <div className={tw_container}>
-        <div className={tw_top}>
-          <div className={tw_titleAndButton}>
-            <h3 className={tw_title}>Create New Post</h3>
-            <Button
-              disabled={title ? false : true}
-              type='submit'
-              onClick={submitPost}
-              variant='contained'
-              endIcon={<SendIcon />}
-            >
-              Post
-            </Button>
-          </div>
-          <div className='flex gap-2'>
-            <TextField
-              focused
-              label='Title'
-              variant='outlined'
-              inputProps={{ style: inputStyle }}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <Select
-              inputProps={{ style: inputStyle }}
-              className='grow'
-              label='Category'
-              id='demo-simple-select'
-              value='test'
-            >
-              <MenuItem value={10}>Web Development</MenuItem>
-              <MenuItem value={20}>Electronics</MenuItem>
-              <MenuItem value={30}>Gaming</MenuItem>
-            </Select>
-          </div>
+        <div className='px-4 py-6 flex flex-row-reverse gap-2 items-end flex-wrap justify-center'>
+          <SubmitButton />
+          <CategoryDropdown /> <TitleInput />
         </div>
 
         <Editor
@@ -155,7 +125,6 @@ export default CreatePost;
 const tw_wrapper = ['flex', 'grow', 'justify-center'].join(' ');
 
 const tw_container = [
-  'pt-8',
   'grow',
   'flex',
   'flex-col',
@@ -168,7 +137,9 @@ const tw_container = [
   'xl:py-16',
 ].join(' ');
 
-const tw_top = ['px-4', 'flex', 'flex-col', 'gap-4'].join(' ');
+const tw_top = ['px-4', 'flex', 'flex-col', 'gap-4', 'justify-center'].join(
+  ' '
+);
 
 const tw_titleAndButton = ['flex', 'justify-between', 'items-end'].join(' ');
 
