@@ -13,9 +13,16 @@ interface CategoryDropdownProps {
   setPostFormData: any;
 }
 
+interface ISelectedOption {
+  category: string;
+  id: string;
+}
+
 function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
   const [categories, setCategories] = useState<ICategory[] | null>(null);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<ISelectedOption | null>(
+    null
+  );
 
   const fetchCategories = async () => {
     try {
@@ -37,14 +44,14 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
     setPostFormData((prevPostFormData: IPostData) => {
       return {
         ...prevPostFormData,
-        category: selectedOption,
+        category: selectedOption?.id,
       };
     });
   }, [selectedOption, setPostFormData]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = findSelectedCategoryId(event.target.value);
-    if (id !== null) setSelectedOption(id);
+    if (id !== null) setSelectedOption({ category: event.target.value, id });
   };
 
   const findSelectedCategoryId = (category: string) => {
@@ -69,25 +76,27 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
   };
 
   return (
-    <div className='max-w-md'>
-      <div className='mb-2 block'>
-        <Label
-          htmlFor='categories'
-          value='Select category'
-          className='text-slate-200'
-        />
-      </div>
+    selectedOption && (
+      <div className='max-w-md'>
+        <div className='mb-2 block'>
+          <Label
+            htmlFor='categories'
+            value='Select category'
+            className='text-slate-200'
+          />
+        </div>
 
-      <Select
-        value={selectedOption || ''} // Provide a default empty string
-        onChange={handleSelectChange}
-        id='categories'
-        required
-        sizing='md'
-      >
-        {createDropdownOptions()}
-      </Select>
-    </div>
+        <Select
+          value={selectedOption.category}
+          onChange={handleSelectChange}
+          id='categories'
+          required
+          sizing='md'
+        >
+          {createDropdownOptions()}
+        </Select>
+      </div>
+    )
   );
 }
 

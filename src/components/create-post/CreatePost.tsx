@@ -33,17 +33,16 @@ function CreatePost() {
     null
   );
 
-  React.useEffect(() => {
-    console.dir(postFormData);
-  }, [postFormData]);
-
   const submitPost = async (e: any) => {
     e.preventDefault();
 
     if (!editorRef.current) return;
 
     const content = editorRef.current.getContent();
-    /*
+    const postData = { ...postFormData, content };
+
+    console.log(postData);
+
     try {
       const status = await GetCreatePostStatus(
         'http://localhost:3000/posts',
@@ -68,7 +67,6 @@ function CreatePost() {
         }
       }
     }
-    */
   };
 
   const GetErrMsgData = () => {
@@ -111,11 +109,11 @@ function CreatePost() {
       <div className={tw_container}>
         <div className={tw_top}>
           <div className='flex flex-col gap-2'>
-            <PublishCheckbox />
+            <PublishCheckbox setPostFormData={setPostFormData} />
             <SubmitButton submitPost={submitPost} />
           </div>
           <CategoryDropdown setPostFormData={setPostFormData} />
-          <TitleInput />
+          <TitleInput setPostFormData={setPostFormData} />
         </div>
 
         <Editor
