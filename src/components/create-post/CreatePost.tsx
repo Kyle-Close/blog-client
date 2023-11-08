@@ -55,7 +55,6 @@ function CreatePost() {
     } catch (error: any) {
       if (error.response) {
         const { status } = error.response;
-        console.log(status);
 
         if (status >= 400) {
           setModalDataState(GetErrMsgData());

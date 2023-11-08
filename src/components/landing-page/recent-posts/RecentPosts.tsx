@@ -42,7 +42,7 @@ function RecentPosts() {
         img={officeImg}
         title={post.title}
         content={post.content}
-        url='/'
+        url={`/posts/${post._id}`}
       />
     );
   });
