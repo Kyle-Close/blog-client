@@ -2,14 +2,13 @@ import React from 'react';
 import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useModal } from '../../hooks/useModal';
-import CreatePostModal from './CreatePostModal';
-
-import SendIcon from '@mui/icons-material/Send';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+
 import CategoryDropdown from './CategoryDropdown';
 import TitleInput from './TitleInput';
 import SubmitButton from './SubmitButton';
+import PublishCheckbox from './PublishCheckbox';
+import CreatePostModal from './CreatePostModal';
 
 // Context
 import { UserContext } from '../../context/userContext';
@@ -102,10 +101,15 @@ function CreatePost() {
           isSuccess
         />
       )}
+
       <div className={tw_container}>
-        <div className='px-4 py-6 flex flex-row-reverse gap-2 items-end flex-wrap justify-center'>
-          <SubmitButton />
-          <CategoryDropdown /> <TitleInput />
+        <div className='px-4 pt-10 flex flex-row-reverse gap-2 items-end flex-wrap justify-center'>
+          <div className='flex flex-col gap-2'>
+            <PublishCheckbox />
+            <SubmitButton />
+          </div>
+          <CategoryDropdown />
+          <TitleInput />
         </div>
 
         <Editor
@@ -136,13 +140,3 @@ const tw_container = [
   'xl:max-w-5xl',
   'xl:py-16',
 ].join(' ');
-
-const tw_top = ['px-4', 'flex', 'flex-col', 'gap-4', 'justify-center'].join(
-  ' '
-);
-
-const tw_titleAndButton = ['flex', 'justify-between', 'items-end'].join(' ');
-
-const tw_title = ['text-lg', 'font-semibold', 'md:text-xl', 'lg:text-2xl'].join(
-  ' '
-);
