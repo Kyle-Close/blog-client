@@ -3,52 +3,88 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
 
+interface PostData {
+  _id: string;
+  title: string;
+  createdBy: string;
+  createdOn: string;
+  content: string;
+  isPublished: boolean;
+}
+
 function Post() {
   const { id } = useParams();
-  const [markdown, setMarkdown] = React.useState<string | null>(null);
+
+  const [postData, setPostData] = React.useState<PostData | null>(null);
 
   React.useEffect(() => {
-    const fetchMarkdown = async () => {
+    const fetchPostData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/posts/${id}`);
         if (response.status === 200) {
-          const fetchedMarkdown = response.data.content;
-          setMarkdown(fetchedMarkdown);
+          const rawPostData: PostData = response.data;
+          const author: string = await fetchAuthor(response.data.createdBy);
+          if (author) {
+            rawPostData.createdBy = author.toUpperCase();
+            setPostData(rawPostData);
+          }
         }
       } catch (error) {
         console.error('Error fetching markdown:', error);
       }
     };
 
-    fetchMarkdown();
+    const fetchAuthor = async (id: string) => {
+      try {
+        const response = await axios.get(`http://localhost:3000/users/${id}`);
+        if (response.status === 200) {
+          return response.data.user.username;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPostData();
   }, [id]);
 
   const createMarkup = (htmlString: string) => {
     return { __html: parse(htmlString) };
   };
 
+  const formatDate = (date: string) => {
+    const gmtDate = date.split('T')[0];
+    const localDate = new Date(gmtDate);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = localDate.toLocaleDateString(undefined, options);
+    return formattedDate.toUpperCase();
+  };
+
   return (
     <div className={tw_wrapper}>
       <div className={tw_postContainer}>
-        <div className={tw_postHeader}>
-          <h3 className={tw_title}>
-            What is a Digital Product Manager? Role Overview, Skills & Salary
-          </h3>
-          <div className={tw_authorAndDate}>
-            <p>
-              <span className='font-semibold'>BY</span> NATASCHA ASBERGER
-            </p>
-            <p>
-              <span className='font-semibold'>UPDATED ON</span> NOVEMBER 2, 2023
-            </p>
-          </div>
-        </div>
-        {markdown ? (
-          <div className='pt-4'>
-            <div dangerouslySetInnerHTML={createMarkup(markdown)}></div>
-          </div>
-        ) : (
-          'Loading...'
+        {postData && (
+          <>
+            <div className={tw_postHeader}>
+              <h3 className={tw_title}>{postData.title}</h3>
+
+              <div className={tw_authorAndDate}>
+                <p>
+                  <span className='font-semibold'>BY</span> {postData.createdBy}
+                </p>
+                <p>
+                  <span className='font-semibold'>CREATED ON</span>{' '}
+                  {formatDate(postData.createdOn)}
+                </p>
+              </div>
+            </div>
+
+            <div className='pt-4'>
+              <div
+                dangerouslySetInnerHTML={createMarkup(postData.content)}
+              ></div>
+            </div>
+          </>
         )}
       </div>
     </div>

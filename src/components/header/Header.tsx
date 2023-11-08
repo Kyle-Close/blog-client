@@ -84,9 +84,6 @@ function Header({ openMenu }: HeaderProps) {
           </div>
         </div>
         <div className={tw_rightSide}>
-          <a className={tw_allPosts} href='/'>
-            All Posts
-          </a>
           <div className={tw_buttonContainer}>{GetHeaderButtons()}</div>
         </div>
         <div className={tw_logoContainer}>
