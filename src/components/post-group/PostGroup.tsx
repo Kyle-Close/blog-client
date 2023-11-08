@@ -4,52 +4,34 @@ import img from '../../assets/office.jpg';
 import { useParams } from 'react-router-dom';
 
 import { IPostCard } from './Card';
-
-enum Category {
-  'WEB_DEVELOPMENT',
-  'ELECTRONICS',
-  'GAMING',
-}
+import axios from 'axios';
 
 function PostGroup() {
   const { id } = useParams();
   const [posts, setPosts] = React.useState<IPostCard | null>(null);
 
-  if (!id) return;
+  React.useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/posts/category/${id}`
+        );
+        if (res) {
+          setPosts(res.data.posts);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  const selectedCategory: Category | null = getCategoryFromURL(id);
+    fetchPosts();
+  }, []);
 
-  if (!selectedCategory) return;
-
-  const endPointURL: string | null = getEndPointURL(selectedCategory);
+  React.useEffect(() => {
+    console.dir(posts);
+  }, [posts]);
 
   return <PostCard title='test' content='some content' img={img} />;
 }
-
-const getCategoryFromURL = (id: string): Category | null => {
-  switch (id.toUpperCase()) {
-    case 'WEB-DEVELOPMENT':
-      return Category.WEB_DEVELOPMENT;
-    case 'ELECTRONICS':
-      return Category.ELECTRONICS;
-    case 'GAMING':
-      return Category.GAMING;
-    default:
-      return null;
-  }
-};
-
-const getEndPointURL = (category: Category): string | null => {
-  switch (category) {
-    case Category.WEB_DEVELOPMENT:
-      return '';
-    case Category.ELECTRONICS:
-      return '';
-    case Category.GAMING:
-      return '';
-    default:
-      return null;
-  }
-};
 
 export default PostGroup;
