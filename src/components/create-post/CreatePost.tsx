@@ -16,7 +16,12 @@ import { UserContextType } from '../../@types/user';
 
 import axios from 'axios';
 
-export interface IPostData {}
+export interface IPostData {
+  title: string;
+  content: string;
+  category: string;
+  isPublished: boolean;
+}
 
 function CreatePost() {
   const { user } = React.useContext(UserContext) as UserContextType;
@@ -24,8 +29,13 @@ function CreatePost() {
     useModal();
 
   const editorRef = useRef<any>(null);
-  const [formData, setFormData] = React.useState<IPostData | null>(null);
-  const [title, setTitle] = React.useState<string | null>(null);
+  const [postFormData, setPostFormData] = React.useState<IPostData | null>(
+    null
+  );
+
+  React.useEffect(() => {
+    console.dir(postFormData);
+  }, [postFormData]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -33,8 +43,7 @@ function CreatePost() {
     if (!editorRef.current) return;
 
     const content = editorRef.current.getContent();
-    const postData = { title: title, content: content };
-
+    /*
     try {
       const status = await GetCreatePostStatus(
         'http://localhost:3000/posts',
@@ -59,6 +68,7 @@ function CreatePost() {
         }
       }
     }
+    */
   };
 
   const GetErrMsgData = () => {
@@ -104,7 +114,7 @@ function CreatePost() {
             <PublishCheckbox />
             <SubmitButton submitPost={submitPost} />
           </div>
-          <CategoryDropdown />
+          <CategoryDropdown setPostFormData={setPostFormData} />
           <TitleInput />
         </div>
 
