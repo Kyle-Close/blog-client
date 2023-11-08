@@ -149,15 +149,12 @@ const tw_leftSide = ['flex-1'].join(' ');
 
 const tw_allPosts = [
   'hidden',
-  'bg-clip-text',
   'text-transparent',
   'font-semibold',
   'text-md',
   'md:text-lg',
   'sm:flex',
-  'bg-gradient-to-r',
-  'from-pink-500',
-  'to-red-600',
+  'text-fuchsia-600',
 ].join(' ');
 
 const tw_buttonContainer = [

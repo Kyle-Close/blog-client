@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 interface RecentPostProps {
   img: string;
@@ -13,6 +14,11 @@ function RecentPost({ img, title, content, url }: RecentPostProps) {
   const handleButtonClick = () => {
     if (url) navigate(url);
   };
+
+  const createMarkup = (htmlString: string) => {
+    return { __html: parse(htmlString) };
+  };
+
   return (
     <div onClick={handleButtonClick} className={tw_postContainer}>
       <button className={tw_imageButtonWrapper}>
@@ -24,7 +30,10 @@ function RecentPost({ img, title, content, url }: RecentPostProps) {
           <h4 className={tw_title}>{title}</h4>
         </button>
 
-        <p className={tw_content}>{content}</p>
+        <div
+          className={tw_content}
+          dangerouslySetInnerHTML={createMarkup(content)}
+        ></div>
       </div>
     </div>
   );

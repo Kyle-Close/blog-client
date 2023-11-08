@@ -36,6 +36,7 @@ function CreatePost() {
 
     const content = editorRef.current.getContent();
     const postData = { title: title, content: content };
+    console.dir(postData);
 
     try {
       const status = await GetCreatePostStatus(
@@ -43,7 +44,7 @@ function CreatePost() {
         postData
       );
 
-      if (status === 201) {
+      if (status === 200 || status === 201) {
         const msg = 'Post successfully created!';
         const btnText = 'See Post';
         const btnLink = '/';
