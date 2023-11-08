@@ -106,7 +106,7 @@ const tw_postContainer = [
   'shadow-xl',
   'shadow-black',
   'sm:px-8',
-  'sm:pt-16',
+  'sm:py-12',
   'xl:w-1/2',
 ].join(' ');
 

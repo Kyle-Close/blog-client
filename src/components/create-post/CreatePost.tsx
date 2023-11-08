@@ -8,6 +8,8 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 // Context
 import { UserContext } from '../../context/userContext';
@@ -114,13 +116,26 @@ function CreatePost() {
               Post
             </Button>
           </div>
-          <TextField
-            focused
-            label='Title'
-            variant='outlined'
-            inputProps={{ style: inputStyle }}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <div className='flex gap-2'>
+            <TextField
+              focused
+              label='Title'
+              variant='outlined'
+              inputProps={{ style: inputStyle }}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Select
+              inputProps={{ style: inputStyle }}
+              className='grow'
+              label='Category'
+              id='demo-simple-select'
+              value='test'
+            >
+              <MenuItem value={10}>Web Development</MenuItem>
+              <MenuItem value={20}>Electronics</MenuItem>
+              <MenuItem value={30}>Gaming</MenuItem>
+            </Select>
+          </div>
         </div>
 
         <Editor
