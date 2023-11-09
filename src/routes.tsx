@@ -55,6 +55,14 @@ const routes = [
       </App>
     ),
   },
+  {
+    path: '/dashboard/user/:id',
+    element: (
+      <App>
+        <PostGroup />
+      </App>
+    ),
+  },
 ];
 
 export default routes;

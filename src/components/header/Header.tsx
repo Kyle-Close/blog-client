@@ -78,9 +78,9 @@ function Header({ openMenu }: HeaderProps) {
             <Menu openMenu={openMenu} menuImg={menuImg} />
           </div>
           <div className={tw_linksLeftSide}>
-            <a href='/'>Web Dev</a>
-            <a href='/'>Electronics</a>
-            <a href='/'>Gaming</a>
+            <a href='/posts/category/654b2feff3261b928832e599'>Web Dev</a>
+            <a href='/posts/category/654be37f7e8a123d53fab19c'>Electronics</a>
+            <a href='/posts/category/654be3fc7e8a123d53fab1a2'>Gaming</a>
           </div>
         </div>
         <div className={tw_rightSide}>

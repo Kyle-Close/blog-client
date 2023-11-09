@@ -1,15 +1,25 @@
 import { Card } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface IPostCard {
   title: string;
   content: string;
   img: string;
+  _id: string;
 }
 
-function PostCard({ title, content, img }: IPostCard) {
+function PostCard({ title, content, img, _id }: IPostCard) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log(`id: ${_id}`);
+    navigate(`/posts/${_id}`);
+  };
+
   return (
     <Card
-      className='max-w-sm'
+      onClick={handleClick}
+      className='max-w-xs cursor-pointer'
       imgAlt='Meaningful alt text for an image that is not purely decorative'
       imgSrc={img}
     >

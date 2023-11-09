@@ -41,8 +41,6 @@ function CreatePost() {
     const content = editorRef.current.getContent();
     const postData = { ...postFormData, content };
 
-    console.log(postData);
-
     try {
       const status = await GetCreatePostStatus(
         'http://localhost:3000/posts',

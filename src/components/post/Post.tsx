@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
+import Footer from '../footer/Footer';
 
 interface PostData {
   _id: string;
