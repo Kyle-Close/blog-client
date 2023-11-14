@@ -4,16 +4,17 @@ import axios from 'axios';
 import officeImg from '../../../assets/office.jpg';
 import RecentPost from './RecentPost';
 
-interface IPost {
+export interface IPost {
   _id: string;
   title: string;
   createdBy: string;
+  createdOn?: string;
   content: string;
   isPublished: boolean;
   __v: number;
 }
 
-interface IRecentPostData {
+export interface IRecentPostData {
   msg: string;
   posts: IPost[];
 }

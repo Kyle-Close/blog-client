@@ -5,6 +5,7 @@ import LandingPage from './components/landing-page/LandingPage';
 import CreatePost from './components/create-post/CreatePost';
 import Post from './components/post/Post';
 import PostGroup from './components/post-group/PostGroup';
+import AuthorDashboard from './components/author-dashboard/AuthorDashboard';
 
 const routes = [
   {
@@ -59,7 +60,7 @@ const routes = [
     path: '/dashboard/user/:id',
     element: (
       <App>
-        <PostGroup />
+        <AuthorDashboard />
       </App>
     ),
   },

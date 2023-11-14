@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
-import Footer from '../footer/Footer';
+import { formatDate } from '../../helpers/util';
 
 interface PostData {
   _id: string;
@@ -51,14 +51,6 @@ function Post() {
 
   const createMarkup = (htmlString: string) => {
     return { __html: parse(htmlString) };
-  };
-
-  const formatDate = (date: string) => {
-    const gmtDate = date.split('T')[0];
-    const localDate = new Date(gmtDate);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = localDate.toLocaleDateString(undefined, options);
-    return formattedDate.toUpperCase();
   };
 
   return (
