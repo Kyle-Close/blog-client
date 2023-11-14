@@ -18,10 +18,18 @@ export function decodeEntities(encodedString: string) {
 }
 
 export const formatDate = (date: string) => {
-  const gmtDate = date.split('T')[0];
-  const localDate = new Date(gmtDate);
-  const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = localDate.toLocaleDateString(undefined, options);
+  const dateObject = new Date(date);
+
+  let options: any = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const formattedDate = dateObject.toLocaleDateString(undefined, options);
   return formattedDate.toUpperCase();
 };
 
