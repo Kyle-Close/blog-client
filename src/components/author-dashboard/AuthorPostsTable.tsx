@@ -21,18 +21,23 @@ function AuthorPostsTable() {
   const [selectedPost, setSelectedPost] = React.useState<IPost | null>(null);
 
   React.useEffect(() => {
-    const getRecentPosts = async () => {
-      return await axios.get(`http://localhost:3000/posts/user/${id}`);
-    };
-
-    const setupData = async () => {
-      const res = await getRecentPosts();
-      const recentPost = res.data.posts;
-      setRecentPostData(recentPost);
-    };
-
     setupData();
   }, []);
+
+  const getRecentPosts = async () => {
+    return await axios.get(`http://localhost:3000/posts/user/${id}`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
+  };
+
+  const setupData = async () => {
+    const res = await getRecentPosts();
+    const recentPost = res.data.posts;
+
+    setRecentPostData(recentPost);
+  };
 
   const timelineItems = () => {
     if (!recentPostData) return null;
@@ -73,13 +78,21 @@ function AuthorPostsTable() {
     setOpenModal(true);
   };
 
-  const handleDelete = () => {
-    // Perform the actual deletion logic here
-    if (selectedPost) {
-      // Assuming you have a function to delete a post by ID, replace this with your actual logic
-      console.log(`Deleting post with ID ${selectedPost._id}`);
-      // Call your API or any other logic to delete the post
-    }
+  const handleDelete = async () => {
+    const deletePost = async (id: string) => {
+      try {
+        const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+        if (res.status === 204) {
+          setupData();
+          navigate(`/dashboard/user/${id}`);
+          return;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    deletePost(selectedPost?._id);
   };
 
   const handleViewClick = (postId: string) => {
