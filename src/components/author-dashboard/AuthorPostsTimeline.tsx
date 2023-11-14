@@ -71,7 +71,6 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
             <button onClick={() => handleDeleteClick(post)} className='p-1 '>
               <AiFillDelete color='#ba0000' className='w-8 h-8' />
             </button>
-            <div className='w-1 border-r border-white opacity-50'></div>
           </div>
         </Timeline.Content>
       </Timeline.Item>

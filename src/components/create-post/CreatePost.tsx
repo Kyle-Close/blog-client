@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useModal } from '../../hooks/useModal';
 import Box from '@mui/material/Box';
+import { useParams } from 'react-router';
 
 import CategoryDropdown from './CategoryDropdown';
 import TitleInput from './TitleInput';
@@ -24,6 +25,7 @@ export interface IPostData {
 }
 
 function CreatePost() {
+  const { postId } = useParams();
   const { user } = React.useContext(UserContext) as UserContextType;
   const { open, handleOpen, handleClose, modalData, setModalDataState } =
     useModal();
@@ -32,6 +34,33 @@ function CreatePost() {
   const [postFormData, setPostFormData] = React.useState<IPostData | null>(
     null
   );
+
+  React.useEffect(() => {
+    if (postId) {
+      const getPostData = async (id: string) => {
+        try {
+          const res = await axios.get(`http://localhost:3000/posts/${id}`);
+          if (res) {
+            const data = res.data;
+            setPostFormData({
+              title: data.title,
+              content: data.content,
+              category: data.category,
+              isPublished: data.isPublished,
+            });
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      getPostData(postId);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    console.log(postFormData);
+  }, [postFormData]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();

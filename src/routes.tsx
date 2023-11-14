@@ -73,6 +73,14 @@ const routes = [
       </App>
     ),
   },
+  {
+    path: '/update-post/:postId',
+    element: (
+      <App>
+        <CreatePost />
+      </App>
+    ),
+  },
 ];
 
 export default routes;
