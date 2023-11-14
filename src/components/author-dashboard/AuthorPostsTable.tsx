@@ -9,13 +9,16 @@ import { useParams } from 'react-router-dom';
 import { removeMarkup } from '../../helpers/util';
 import { formatDate } from '../../helpers/util';
 import { useNavigate } from 'react-router-dom';
+import ConfirmDeletePostModal from './ConfirmDeletePostModal';
 
 function AuthorPostsTable() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = React.useState(false);
   const [recentPostData, setRecentPostData] = React.useState<IPost[] | null>(
     null
   );
+  const [selectedPost, setSelectedPost] = React.useState<IPost | null>(null);
 
   React.useEffect(() => {
     const getRecentPosts = async () => {
@@ -55,7 +58,7 @@ function AuthorPostsTable() {
               <AiFillEdit color='white' className='w-8 h-8' />
             </button>
             <div className='w-1 border-r border-white opacity-50'></div>
-            <button className='p-1 '>
+            <button onClick={() => handleDeleteClick(post)} className='p-1 '>
               <AiFillDelete color='#ba0000' className='w-8 h-8' />
             </button>
             <div className='w-1 border-r border-white opacity-50'></div>
@@ -63,6 +66,20 @@ function AuthorPostsTable() {
         </Timeline.Content>
       </Timeline.Item>
     ));
+  };
+
+  const handleDeleteClick = (post: IPost) => {
+    setSelectedPost(post);
+    setOpenModal(true);
+  };
+
+  const handleDelete = () => {
+    // Perform the actual deletion logic here
+    if (selectedPost) {
+      // Assuming you have a function to delete a post by ID, replace this with your actual logic
+      console.log(`Deleting post with ID ${selectedPost._id}`);
+      // Call your API or any other logic to delete the post
+    }
   };
 
   const handleViewClick = (postId: string) => {
@@ -74,7 +91,19 @@ function AuthorPostsTable() {
     else return <Badge color='failure'>Unpublished</Badge>;
   };
 
-  return <Timeline>{recentPostData && timelineItems()}</Timeline>;
+  return (
+    <>
+      <Timeline>{recentPostData && timelineItems()}</Timeline>
+      {selectedPost && (
+        <ConfirmDeletePostModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          post={selectedPost}
+          onDelete={handleDelete}
+        />
+      )}
+    </>
+  );
 }
 
 export default AuthorPostsTable;
