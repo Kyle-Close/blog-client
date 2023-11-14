@@ -6,6 +6,7 @@ import CreatePost from './components/create-post/CreatePost';
 import Post from './components/post/Post';
 import PostGroup from './components/post-group/PostGroup';
 import AuthorDashboard from './components/author-dashboard/AuthorDashboard';
+import AuthorPosts from './components/author-dashboard/AuthorPosts';
 
 const routes = [
   {
@@ -61,6 +62,14 @@ const routes = [
     element: (
       <App>
         <AuthorDashboard />
+      </App>
+    ),
+  },
+  {
+    path: '/posts/user/:id',
+    element: (
+      <App>
+        <AuthorPosts />
       </App>
     ),
   },

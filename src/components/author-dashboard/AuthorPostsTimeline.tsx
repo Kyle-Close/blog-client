@@ -12,7 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmDeletePostModal from './ConfirmDeletePostModal';
 import { limitChars } from '../../helpers/util';
 
-function AuthorPostsTable() {
+interface AuthorPostsTimelineProps {
+  postLimit?: number;
+}
+
+function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = React.useState(false);
@@ -25,16 +29,16 @@ function AuthorPostsTable() {
     setupData();
   }, []);
 
-  const getRecentPosts = async () => {
-    return await axios.get(`http://localhost:3000/posts/user/${id}`, {
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    });
+  const getPosts = async () => {
+    if (postLimit) {
+      return await axios.post(`http://localhost:3000/posts/user/${id}`, {
+        postLimit,
+      });
+    } else return await axios.post(`http://localhost:3000/posts/user/${id}`);
   };
 
   const setupData = async () => {
-    const res = await getRecentPosts();
+    const res = await getPosts();
     const recentPost = res.data.posts;
 
     setRecentPostData(recentPost);
@@ -46,9 +50,9 @@ function AuthorPostsTable() {
     return recentPostData.map((post, key) => (
       <Timeline.Item key={key}>
         <Timeline.Point />
-        <Timeline.Content>
-          <div className='flex'>{isPublishedBadge(post.isPublished)}</div>
+        <Timeline.Content className='flex flex-col gap-2'>
           <Timeline.Time>{formatDate(post.createdOn)}</Timeline.Time>
+          <div className='flex'>{isPublishedBadge(post.isPublished)}</div>
           <Timeline.Title className='text-slate-200'>
             {post.title}
           </Timeline.Title>
@@ -120,4 +124,4 @@ function AuthorPostsTable() {
   );
 }
 
-export default AuthorPostsTable;
+export default AuthorPostsTimeline;
