@@ -24,3 +24,9 @@ export const formatDate = (date: string) => {
   const formattedDate = localDate.toLocaleDateString(undefined, options);
   return formattedDate.toUpperCase();
 };
+
+export const limitChars = (inputString: string, limit: number) => {
+  return inputString.length > limit
+    ? inputString.substring(0, limit) + '...'
+    : inputString;
+};

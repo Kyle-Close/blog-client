@@ -10,6 +10,7 @@ import { removeMarkup } from '../../helpers/util';
 import { formatDate } from '../../helpers/util';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDeletePostModal from './ConfirmDeletePostModal';
+import { limitChars } from '../../helpers/util';
 
 function AuthorPostsTable() {
   const { id } = useParams();
@@ -52,7 +53,7 @@ function AuthorPostsTable() {
             {post.title}
           </Timeline.Title>
           <Timeline.Body className='text-slate-200'>
-            {removeMarkup(post.content)}
+            {limitChars(removeMarkup(post.content), 300)}
           </Timeline.Body>
           <div className='flex justify-end gap-4 pt-4'>
             <button onClick={() => handleViewClick(post._id)} className='p-1 '>
