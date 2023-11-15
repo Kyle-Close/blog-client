@@ -12,7 +12,6 @@ function PostCard({ title, content, img, _id }: IPostCard) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log(`id: ${_id}`);
     navigate(`/posts/${_id}`);
   };
 

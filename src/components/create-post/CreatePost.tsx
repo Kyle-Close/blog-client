@@ -58,10 +58,6 @@ function CreatePost() {
     }
   }, []);
 
-  React.useEffect(() => {
-    console.log(postFormData);
-  }, [postFormData]);
-
   const submitPost = async (e: any) => {
     e.preventDefault();
 
@@ -71,15 +67,15 @@ function CreatePost() {
     const postData = { ...postFormData, content };
 
     try {
-      const status = await GetCreatePostStatus(
+      const res = await GetCreatePostResponse(
         'http://localhost:3000/posts',
         postData
       );
 
-      if (status === 200 || status === 201) {
+      if (res.status === 200 || res.status === 201) {
         const msg = 'Post successfully created!';
         const btnText = 'See Post';
-        const btnLink = '/';
+        const btnLink = `/posts/${res.id}`;
 
         setModalDataState({ msg, btnText, btnLink, isSuccess: true });
         handleOpen();
@@ -113,11 +109,12 @@ function CreatePost() {
     };
   };
 
-  const GetCreatePostStatus = async (url: string, postData: any) => {
+  const GetCreatePostResponse = async (url: string, postData: any) => {
     const res: any = await axios.post(url, postData);
-
-    const { status } = res;
-    return status;
+    console.log(res);
+    const { status, data } = res;
+    const id = data.id;
+    return { status, id };
   };
 
   return (

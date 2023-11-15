@@ -19,7 +19,6 @@ function PostGroup() {
           axios.get(`http://localhost:3000/categories/${id}`),
           axios.get(`http://localhost:3000/posts/category/${id}`),
         ]);
-        console.log(categoryResponse);
         if (categoryResponse.status === 200 && postsResponse.status === 200) {
           let category = categoryResponse.data.category.category;
           setCategory(category.charAt(0).toUpperCase() + category.slice(1));
