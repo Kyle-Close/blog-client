@@ -66,6 +66,8 @@ function CreatePost() {
     const content = editorRef.current.getContent();
     const postData = { ...postFormData, content };
 
+    if (!postData.content || !postData.title) return;
+
     try {
       const res = await GetCreatePostResponse(
         'http://localhost:3000/posts',
