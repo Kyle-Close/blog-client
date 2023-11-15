@@ -74,7 +74,7 @@ const routes = [
     ),
   },
   {
-    path: '/update-post/:postId',
+    path: '/edit/:postId',
     element: (
       <App>
         <CreatePost />

@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useModal } from '../../hooks/useModal';
 import Box from '@mui/material/Box';
 import { useParams } from 'react-router';
+import he from 'he';
 
 import CategoryDropdown from './CategoryDropdown';
 import TitleInput from './TitleInput';
@@ -42,9 +43,12 @@ function CreatePost() {
           const res = await axios.get(`http://localhost:3000/posts/${id}`);
           if (res) {
             const data = res.data;
+            console.log(data);
+
+            // Decode HTML entities
             setPostFormData({
               title: data.title,
-              content: data.content,
+              content: he.decode(data.content),
               category: data.category,
               isPublished: data.isPublished,
             });
@@ -56,7 +60,15 @@ function CreatePost() {
 
       getPostData(postId);
     }
-  }, []);
+  }, [postId]);
+
+  React.useEffect(() => {
+    if (editorRef.current) {
+      const fetchedContent = postFormData?.content || '';
+      console.log('here', fetchedContent);
+      editorRef.current.setContent(fetchedContent, { format: 'raw' });
+    }
+  }, [postFormData]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -69,13 +81,26 @@ function CreatePost() {
     if (!postData.content || !postData.title) return;
 
     try {
-      const res = await GetCreatePostResponse(
-        'http://localhost:3000/posts',
-        postData
-      );
+      let res;
+
+      if (postId) {
+        res = await GetUpdatePostResponse(
+          `http://localhost:3000/posts/${postId}`,
+          postData
+        );
+      } else {
+        res = await GetCreatePostResponse(
+          'http://localhost:3000/posts',
+          postData
+        );
+      }
+
+      console.log('here', res.id);
 
       if (res.status === 200 || res.status === 201) {
-        const msg = 'Post successfully created!';
+        const msg = postId
+          ? 'Post successfully updated!'
+          : 'Post successfully created!';
         const btnText = 'See Post';
         const btnLink = `/posts/${res.id}`;
 
@@ -113,9 +138,16 @@ function CreatePost() {
 
   const GetCreatePostResponse = async (url: string, postData: any) => {
     const res: any = await axios.post(url, postData);
-    console.log(res);
     const { status, data } = res;
     const id = data.id;
+    return { status, id };
+  };
+
+  const GetUpdatePostResponse = async (url: string, postData: any) => {
+    const res: any = await axios.put(url, postData);
+    console.log(res);
+    const { status, data } = res;
+    const id = data._id;
     return { status, id };
   };
 
@@ -136,15 +168,28 @@ function CreatePost() {
         <div className={tw_top}>
           <div className='flex flex-col gap-2'>
             <PublishCheckbox setPostFormData={setPostFormData} />
-            <SubmitButton submitPost={submitPost} />
+            {postId ? (
+              <SubmitButton text={'Update'} submitPost={submitPost} />
+            ) : (
+              <SubmitButton text={'Post'} submitPost={submitPost} />
+            )}
           </div>
           <CategoryDropdown setPostFormData={setPostFormData} />
-          <TitleInput setPostFormData={setPostFormData} />
+          <TitleInput
+            setPostFormData={setPostFormData}
+            title={postFormData?.title}
+          />
         </div>
 
         <Editor
           apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
-          onInit={(evt, editor) => (editorRef.current = editor)}
+          onInit={(evt, editor) => {
+            editorRef.current = editor;
+            // Set the content of the editor when initializing
+            const fetchedContent = postFormData?.content || '';
+            console.log('here', fetchedContent);
+            editor.setContent(fetchedContent);
+          }}
           init={{
             height: '100%',
           }}

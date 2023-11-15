@@ -47,7 +47,7 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
   const timelineItems = () => {
     if (!recentPostData) return null;
 
-    return recentPostData.map((post, key) => (
+    return recentPostData.map((post: any, key) => (
       <Timeline.Item key={key}>
         <Timeline.Point />
         <Timeline.Content className='flex flex-col gap-2'>
@@ -64,7 +64,7 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
               <AiFillEye color='yellow' className='w-8 h-8' />
             </button>
             <div className='w-1 border-r border-white opacity-50'></div>
-            <button className='p-1 '>
+            <button onClick={() => handleEditClick(post._id)} className='p-1 '>
               <AiFillEdit color='white' className='w-8 h-8' />
             </button>
             <div className='w-1 border-r border-white opacity-50'></div>
@@ -82,8 +82,12 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
     setOpenModal(true);
   };
 
+  const handleEditClick = (id: any) => {
+    navigate(`/edit/${id}`);
+  };
+
   const handleDelete = async () => {
-    const deletePost = async (id: string) => {
+    const deletePost = async (id: any) => {
       try {
         const res = await axios.delete(`http://localhost:3000/posts/${id}`);
         if (res.status === 204) {

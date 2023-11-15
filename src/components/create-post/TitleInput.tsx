@@ -3,22 +3,17 @@ import React from 'react';
 
 interface TitleInputProps {
   setPostFormData: any;
+  title: any;
 }
 
-function TitleInput({ setPostFormData }: TitleInputProps) {
-  const [title, setTitle] = React.useState<string>('');
-
-  React.useEffect(() => {
+function TitleInput({ setPostFormData, title }: TitleInputProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPostFormData((prevPostFormData: any) => {
       return {
         ...prevPostFormData,
-        title,
+        title: e.target.value,
       };
     });
-  }, [title]);
-
-  const handleChange = (e: any) => {
-    setTitle(e.target.value);
   };
 
   return (
@@ -26,7 +21,13 @@ function TitleInput({ setPostFormData }: TitleInputProps) {
       <div className='mb-2 block'>
         <Label htmlFor='title' value='Title' className='text-slate-200' />
       </div>
-      <TextInput onChange={handleChange} id='title' required sizing='md' />
+      <TextInput
+        value={title || ''} // Provide a default value or use an empty string
+        onChange={handleChange}
+        id='title'
+        required
+        sizing='md'
+      />
     </div>
   );
 }
