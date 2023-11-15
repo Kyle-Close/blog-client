@@ -43,13 +43,13 @@ function Header({ openMenu }: HeaderProps) {
         <LogoutIcon fontSize='large' color='error' />
       </button>
     );
-    const dashboardButton = (
-      <button onClick={() => navigate('/')}>
-        <DashboardIcon fontSize='large' color='inherit' />
-      </button>
-    );
 
     if (isLoggedIn && isAuthor) {
+      const dashboardButton = (
+        <button onClick={() => navigate(`/dashboard/user/${user?.id}`)}>
+          <DashboardIcon fontSize='large' color='inherit' />
+        </button>
+      );
       result = (
         <>
           {dashboardButton}

@@ -110,7 +110,13 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
 
   return (
     <>
-      <Timeline>{recentPostData && timelineItems()}</Timeline>
+      <Timeline>
+        {recentPostData ? (
+          timelineItems()
+        ) : (
+          <div className='grow'>Looks like you don't have any posts yet!</div>
+        )}
+      </Timeline>
       {selectedPost && (
         <ConfirmDeletePostModal
           openModal={openModal}

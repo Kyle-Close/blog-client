@@ -29,7 +29,10 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
       const res = await axios.get('http://localhost:3000/categories');
       if (res.data) {
         setCategories(res.data.categories);
-        setSelectedOption(res.data.categories[0]._id);
+        setSelectedOption({
+          id: res.data.categories[0]._id,
+          category: res.data.categories[0].category,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -47,7 +50,7 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
         category: selectedOption?.id,
       };
     });
-  }, [selectedOption, setPostFormData]);
+  }, [selectedOption]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = findSelectedCategoryId(event.target.value);
