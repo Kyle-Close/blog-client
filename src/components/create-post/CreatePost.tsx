@@ -30,6 +30,7 @@ function CreatePost() {
   const { user } = React.useContext(UserContext) as UserContextType;
   const { open, handleOpen, handleClose, modalData, setModalDataState } =
     useModal();
+  const [initialContentSet, setInitialContentSet] = React.useState(false);
 
   const editorRef = useRef<any>(null);
   const [postFormData, setPostFormData] = React.useState<IPostData | null>(
@@ -37,7 +38,7 @@ function CreatePost() {
   );
 
   React.useEffect(() => {
-    if (postId) {
+    if (postId && !initialContentSet) {
       const getPostData = async (id: string) => {
         try {
           const res = await axios.get(`http://localhost:3000/posts/${id}`);
@@ -52,6 +53,7 @@ function CreatePost() {
               category: data.category,
               isPublished: data.isPublished,
             });
+            setInitialContentSet(true);
           }
         } catch (err) {
           console.log(err);
@@ -60,15 +62,15 @@ function CreatePost() {
 
       getPostData(postId);
     }
-  }, [postId]);
+  }, [postId, initialContentSet]);
 
   React.useEffect(() => {
-    if (editorRef.current) {
+    console.log(postFormData);
+    if (editorRef.current && initialContentSet) {
       const fetchedContent = postFormData?.content || '';
-      console.log('here', fetchedContent);
       editorRef.current.setContent(fetchedContent, { format: 'raw' });
     }
-  }, [postFormData]);
+  }, [postFormData, initialContentSet]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -151,6 +153,13 @@ function CreatePost() {
     return { status, id };
   };
 
+  const handleEditorChange = (content, editor) => {
+    setPostFormData((prevPostFormData) => ({
+      ...prevPostFormData,
+      content: content,
+    }));
+  };
+
   return (
     <Box component='form' className={tw_wrapper}>
       {open && modalData && (
@@ -167,7 +176,10 @@ function CreatePost() {
       <div className={tw_container}>
         <div className={tw_top}>
           <div className='flex flex-col gap-2'>
-            <PublishCheckbox setPostFormData={setPostFormData} />
+            <PublishCheckbox
+              isChecked={postFormData?.isPublished}
+              setPostFormData={setPostFormData}
+            />
             {postId ? (
               <SubmitButton text={'Update'} submitPost={submitPost} />
             ) : (
@@ -182,12 +194,14 @@ function CreatePost() {
         </div>
 
         <Editor
+          onEditorChange={handleEditorChange}
           apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
+          value={postFormData?.content}
           onInit={(evt, editor) => {
             editorRef.current = editor;
+
             // Set the content of the editor when initializing
             const fetchedContent = postFormData?.content || '';
-            console.log('here', fetchedContent);
             editor.setContent(fetchedContent);
           }}
           init={{
