@@ -38,3 +38,11 @@ export const limitChars = (inputString: string, limit: number) => {
     ? inputString.substring(0, limit) + '...'
     : inputString;
 };
+
+export function capitalizeWords(str: string) {
+  const words = str.split(' ');
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+  return capitalizedWords.join(' ');
+}

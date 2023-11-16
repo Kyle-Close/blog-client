@@ -10,7 +10,7 @@ import { removeMarkup } from '../../helpers/util';
 import { formatDate } from '../../helpers/util';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDeletePostModal from './ConfirmDeletePostModal';
-import { limitChars } from '../../helpers/util';
+import { limitChars, capitalizeWords } from '../../helpers/util';
 
 interface AuthorPostsTimelineProps {
   postLimit?: number;
@@ -37,11 +37,29 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
     } else return await axios.post(`http://localhost:3000/posts/user/${id}`);
   };
 
+  const getCategories = async () => {
+    return await axios.get('http://localhost:3000/categories');
+  };
+
+  const getCategoryNameById = (id: any, categories: any) => {
+    const matchedCategory = categories.find((category) => category._id === id);
+    return capitalizeWords(matchedCategory.category);
+  };
+
   const setupData = async () => {
     const res = await getPosts();
-    const recentPost = res.data.posts;
+    const recentPosts = res.data.posts;
 
-    setRecentPostData(recentPost);
+    if (recentPosts) {
+      const categoriesRes = await getCategories();
+      const { categories } = categoriesRes.data;
+
+      recentPosts.forEach((post) => {
+        post.category = getCategoryNameById(post.category, categories);
+      });
+    }
+
+    setRecentPostData(recentPosts);
   };
 
   const timelineItems = () => {
@@ -52,7 +70,9 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
         <Timeline.Point />
         <Timeline.Content className='flex flex-col gap-2'>
           <Timeline.Time>{formatDate(post.createdOn)}</Timeline.Time>
-          <div className='flex'>{isPublishedBadge(post.isPublished)}</div>
+          <div className='flex gap-4'>
+            {getBadges(post.isPublished, post.category)}
+          </div>
           <Timeline.Title className='text-slate-200'>
             {post.title}
           </Timeline.Title>
@@ -107,7 +127,22 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
     navigate(`/posts/${postId}`);
   };
 
-  const isPublishedBadge = (isPublished: boolean) => {
+  const getBadges = (isPublished: boolean, category: string) => {
+    const isPublishedBadge = getIsPublishedBadge(isPublished);
+    const categoryBadge = getCategoryBadge(category);
+    return (
+      <>
+        {isPublishedBadge}
+        {categoryBadge}
+      </>
+    );
+  };
+
+  const getCategoryBadge = (category: string) => {
+    return <Badge color='purple'>{category}</Badge>;
+  };
+
+  const getIsPublishedBadge = (isPublished: boolean) => {
     if (isPublished) return <Badge color='success'>Published</Badge>;
     else return <Badge color='failure'>Unpublished</Badge>;
   };

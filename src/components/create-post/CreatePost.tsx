@@ -65,7 +65,7 @@ function CreatePost() {
   }, [postId, initialContentSet]);
 
   React.useEffect(() => {
-    console.log(postFormData);
+    console.log('right here', postFormData);
     if (editorRef.current && initialContentSet) {
       const fetchedContent = postFormData?.content || '';
       editorRef.current.setContent(fetchedContent, { format: 'raw' });
@@ -96,8 +96,6 @@ function CreatePost() {
           postData
         );
       }
-
-      console.log('here', res.id);
 
       if (res.status === 200 || res.status === 201) {
         const msg = postId
@@ -153,8 +151,8 @@ function CreatePost() {
     return { status, id };
   };
 
-  const handleEditorChange = (content, editor) => {
-    setPostFormData((prevPostFormData) => ({
+  const handleEditorChange = (content: any, editor: any) => {
+    setPostFormData((prevPostFormData: any) => ({
       ...prevPostFormData,
       content: content,
     }));

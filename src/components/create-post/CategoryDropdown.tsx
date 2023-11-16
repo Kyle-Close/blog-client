@@ -2,6 +2,7 @@ import { Label, Select } from 'flowbite-react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IPostData } from './CreatePost';
+import { capitalizeWords } from '../../helpers/util';
 
 export interface ICategory {
   _id: string;
@@ -104,11 +105,3 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
 }
 
 export default CategoryDropdown;
-
-function capitalizeWords(str: string) {
-  const words = str.split(' ');
-  const capitalizedWords = words.map(
-    (word) => word.charAt(0).toUpperCase() + word.slice(1)
-  );
-  return capitalizedWords.join(' ');
-}
