@@ -12,6 +12,7 @@ export interface ICategory {
 
 interface CategoryDropdownProps {
   setPostFormData: any;
+  category: string;
 }
 
 interface ISelectedOption {
@@ -19,29 +20,28 @@ interface ISelectedOption {
   id: string;
 }
 
-function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
+function CategoryDropdown({
+  setPostFormData,
+  category,
+}: CategoryDropdownProps) {
   const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [selectedOption, setSelectedOption] = useState<ISelectedOption | null>(
     null
   );
 
-  const fetchCategories = async () => {
-    try {
-      const res = await axios.get('http://localhost:3000/categories');
-      if (res.data) {
-        setCategories(res.data.categories);
-        setSelectedOption({
-          id: res.data.categories[0]._id,
-          category: res.data.categories[0].category,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    fetchCategories();
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/categories');
+        if (res.data) {
+          setCategories(res.data.categories);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -52,6 +52,18 @@ function CategoryDropdown({ setPostFormData }: CategoryDropdownProps) {
       };
     });
   }, [selectedOption]);
+
+  const findDefaultCategory = () => {
+    if (!categories || !category) return null;
+
+    const foundCategory = categories.find(
+      (cat) => cat.category === category.toLowerCase()
+    );
+
+    return foundCategory
+      ? { category: foundCategory.category, id: foundCategory._id }
+      : null;
+  };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = findSelectedCategoryId(event.target.value);

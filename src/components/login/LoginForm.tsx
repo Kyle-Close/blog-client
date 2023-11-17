@@ -31,7 +31,7 @@ function LoginForm({ handleSubmit, handleChange, formData }: LoginFormProps) {
         />
       </div>
       <button className={tw_submitButton} type='submit'>
-        Sign up
+        Login
       </button>
     </form>
   );

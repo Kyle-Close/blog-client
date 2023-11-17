@@ -1,23 +1,52 @@
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router';
 
 interface IAuthorshipGatewayProps {
   isAuthor: boolean;
+  userId?: string;
 }
 
-function AuthorshipGateway({ isAuthor }: IAuthorshipGatewayProps) {
+function AuthorshipGateway({ isAuthor, userId }: IAuthorshipGatewayProps) {
+  const navigate = useNavigate();
   const title = isAuthor ? 'Author Dashboard' : 'Become an Author';
-  const body = isAuthor
-    ? 'Have a tech topic you want to discuss and share on Blogging with Bits? Apply below to become an Author!'
-    : 'On the author dashboard you can publish posts, edit posts, delete posts, and more.';
-  const buttonText = isAuthor ? 'Dashboard' : 'Apply';
   const buttonColor = isAuthor ? 'secondary' : 'primary';
+
+  const getBodyText = () => {
+    if (userId) {
+      return isAuthor
+        ? 'Want to create, edit, or delete a post Author? Click below to visit your dashboard!'
+        : 'Have a tech topic you want to discuss and share on Blogging with Bits? Apply below to become an Author!';
+    }
+
+    return 'Please login to use the Author dashboard.';
+  };
+
+  const getLink = () => {
+    if (userId) {
+      return isAuthor ? `dashboard/user/${userId}` : '/';
+    }
+    return '/login';
+  };
+
+  const getButtonText = () => {
+    if (userId) {
+      return isAuthor ? 'Dashboard' : 'Apply';
+    }
+    return 'Login';
+  };
+
   return (
     <div className={tw_widthWrapper}>
       <div className={tw_container}>
         <h3 className={tw_title}>{title}</h3>
-        <p className={tw_body}>{body}</p>
-        <Button variant='contained' size='large' color={buttonColor}>
-          {buttonText}
+        <p className={tw_body}>{getBodyText()}</p>
+        <Button
+          onClick={() => navigate(getLink())}
+          variant='contained'
+          size='large'
+          color={buttonColor}
+        >
+          {getButtonText()}
         </Button>
       </div>
     </div>

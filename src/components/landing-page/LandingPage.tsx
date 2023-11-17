@@ -15,7 +15,7 @@ function LandingPage() {
     <>
       <PopularPosts />
       <QuoteSection />
-      <AuthorshipGateway isAuthor={isAuthor} />
+      <AuthorshipGateway isAuthor={isAuthor} userId={user?.id} />
       <RecentPosts />
       <Footer />
     </>

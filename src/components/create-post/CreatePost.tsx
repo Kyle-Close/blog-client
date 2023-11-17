@@ -65,12 +65,8 @@ function CreatePost() {
   }, [postId, initialContentSet]);
 
   React.useEffect(() => {
-    console.log('right here', postFormData);
-    if (editorRef.current && initialContentSet) {
-      const fetchedContent = postFormData?.content || '';
-      editorRef.current.setContent(fetchedContent, { format: 'raw' });
-    }
-  }, [postFormData, initialContentSet]);
+    console.log(postFormData);
+  }, [postFormData]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -184,7 +180,10 @@ function CreatePost() {
               <SubmitButton text={'Post'} submitPost={submitPost} />
             )}
           </div>
-          <CategoryDropdown setPostFormData={setPostFormData} />
+          <CategoryDropdown
+            setPostFormData={setPostFormData}
+            category={postFormData?.category}
+          />
           <TitleInput
             setPostFormData={setPostFormData}
             title={postFormData?.title}
@@ -199,8 +198,8 @@ function CreatePost() {
             editorRef.current = editor;
 
             // Set the content of the editor when initializing
-            const fetchedContent = postFormData?.content || '';
-            editor.setContent(fetchedContent);
+            //const fetchedContent = postFormData?.content || '';
+            //editor.setContent(fetchedContent);
           }}
           init={{
             height: '100%',
