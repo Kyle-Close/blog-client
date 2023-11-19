@@ -1,5 +1,5 @@
-import * as React from "react";
-import { UserContextType, IUser, UserProviderProps } from "../@types/user";
+import * as React from 'react';
+import { UserContextType, IUser, UserProviderProps } from '../@types/user';
 
 export const UserContext = React.createContext<UserContextType | null>(null);
 
@@ -8,22 +8,26 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const login = (user: IUser, token: string) => {
     // Remove any token that may already exist
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     // Store the token in localStorage
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
     // setUser to update the global state
     setUser(user);
   };
 
   const logout = () => {
     // Remove the token from local storage
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     // setUser to update the global state
     setUser(null);
   };
 
+  const updateUser = (newUserData: IUser) => {
+    setUser((prevUser) => ({ ...prevUser, ...newUserData }));
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -7,6 +7,7 @@ export type UserContextType = {
   user: IUser | null;
   login: (user: IUser, token: string) => void;
   logout: () => void;
+  updateUser: (any) => void;
 };
 
 export interface UserProviderProps {
