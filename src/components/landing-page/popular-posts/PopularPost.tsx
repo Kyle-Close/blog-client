@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
+
 interface PopularPostProps {
   img: string;
   title: string;
   author: string;
+  url: string;
 }
 
-function PopularPost({ img, title, author }: PopularPostProps) {
+function PopularPost({ img, title, author, url }: PopularPostProps) {
+  const navigate = useNavigate();
   return (
-    <div className={tw_postContainer}>
+    <div onClick={() => navigate(url)} className={tw_postContainer}>
       <img className={tw_postImg} src={img} />
       <h3 className={tw_postTitle}>{`${title}`}</h3>
 

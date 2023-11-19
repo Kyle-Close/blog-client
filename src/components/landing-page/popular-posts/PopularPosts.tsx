@@ -6,7 +6,7 @@ import axios from 'axios';
 interface PopularPost {
   title: string;
   author: string;
-  _id: string;
+  postId: string;
 }
 
 function PopularPosts() {
@@ -28,12 +28,14 @@ function PopularPosts() {
   }, []);
 
   const posts = popularPostsData.map((post: PopularPost, key) => {
+    console.log('here', post);
     return (
       <PopularPost
         key={key}
         img={iPhoneImg}
         title={post.title}
         author={post.author}
+        url={`/posts/${post.postId}`}
       />
     );
   });

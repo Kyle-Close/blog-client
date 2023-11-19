@@ -1,4 +1,5 @@
 import authorImg from '../assets/portrait1.jpg';
+import robotImg from '../assets/robot.png';
 
 export interface IQuoteData {
   authorImg: string;
@@ -9,17 +10,17 @@ export interface IQuoteData {
 
 export const QuoteData: IQuoteData[] = [
   {
-    authorImg: authorImg,
+    authorImg: robotImg,
     quote:
-      'Our people hold the keys to their own future. Pando helps empower people to understand where they’re at and how to move forward in their career.',
-    authorFullName: 'Monica Matison',
-    authorPosition: 'Vice President of People, Shipwell',
+      'Web development: where I turn caffeine into code and errors into experiences. Because flawless is overrated.',
+    authorFullName: 'ChatGPT',
+    authorPosition: 'Chief Wizard of Witty Words',
   },
   {
-    authorImg: authorImg,
+    authorImg: robotImg,
     quote:
-      'Embracing chaos and creativity, we dance with algorithms and paint with pixels, shaping the digital universe one innovation at a time. Join us in this cosmic adventure!',
-    authorFullName: 'Galaxy Gazer',
-    authorPosition: 'Chief Creative Chaos Officer, Stellar Innovations Ltd.',
+      'Respawn in games: a second chance at glory. Respawn in real life: well, a nap usually helps.',
+    authorFullName: 'ChatGPT',
+    authorPosition: 'Chief Respawn Strategist.',
   },
 ];

@@ -74,6 +74,7 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
 
     return recentPostData.map((post: any, key) => {
       let content = extractTextAndRemoveSpaces(post.content);
+      content = limitChars(content, 300);
       return (
         <Timeline.Item key={key}>
           <Timeline.Point />

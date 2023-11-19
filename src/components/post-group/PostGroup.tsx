@@ -2,6 +2,7 @@ import React from 'react';
 import PostCard from './Card';
 import img from '../../assets/office.jpg';
 import { useParams } from 'react-router-dom';
+import { limitChars } from '../../helpers/util';
 import he from 'he';
 
 import { IPostCard } from './Card';
@@ -39,7 +40,7 @@ function PostGroup() {
         key={key}
         _id={post._id}
         title={post.title}
-        content={extractTextAndRemoveSpaces(post.content)}
+        content={limitChars(extractTextAndRemoveSpaces(post.content), 150)}
         img={img}
       />
     );
