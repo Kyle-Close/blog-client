@@ -1,4 +1,11 @@
+import React from 'react';
+// Context
+import { UserContext } from '../../context/userContext';
+import { UserContextType } from '../../@types/user';
+
 function LinkSection() {
+  const { user } = React.useContext(UserContext) as UserContextType;
+  const dashboardLink = user ? `/dashboard/user/${user.id}` : '/';
   return (
     <div className='flex gap-8 lg:gap-16'>
       <div className='flex flex-col gap-2'>
@@ -6,16 +13,16 @@ function LinkSection() {
         <a href='/' className={tw_link}>
           About
         </a>
-        <a href='/' className={tw_link}>
+        <a href='https://github.com/Kyle-Close' className={tw_link}>
           Github
         </a>
         <a href='/' className={tw_link}>
-          Portfolio
+          {'Portfolio (Coming Soon)'}
         </a>
       </div>
       <div className='flex flex-col gap-2'>
         <h4 className={tw_linkHeading}>Authors</h4>
-        <a href='/' className={tw_link}>
+        <a href={dashboardLink} className={tw_link}>
           Dashboard
         </a>
       </div>

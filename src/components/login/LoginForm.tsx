@@ -13,7 +13,7 @@ function LoginForm({ handleSubmit, handleChange, formData }: LoginFormProps) {
       <div className='flex flex-col gap-2'>
         <label htmlFor='username'>Username</label>
         <input
-          className='h-10 rounded-md px-4 bg-slate-600'
+          className='h-10 rounded-md px-4 bg-slate-400'
           name='username'
           placeholder='username'
           value={formData.username}
@@ -24,7 +24,7 @@ function LoginForm({ handleSubmit, handleChange, formData }: LoginFormProps) {
         <label htmlFor='password'>Password</label>
         <input
           type='password'
-          className='h-10 rounded-md px-4 bg-slate-600'
+          className='h-10 rounded-md px-4 bg-slate-400'
           name='password'
           value={formData.password}
           onChange={handleChange}
