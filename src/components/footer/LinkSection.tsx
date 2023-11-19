@@ -11,7 +11,7 @@ function LinkSection() {
       <div className='flex flex-col gap-2'>
         <h4 className={tw_linkHeading}>Developer</h4>
         <a href='/' className={tw_link}>
-          About
+          About This Website
         </a>
         <a href='https://github.com/Kyle-Close' className={tw_link}>
           Github

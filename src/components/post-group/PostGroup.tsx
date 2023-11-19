@@ -2,6 +2,7 @@ import React from 'react';
 import PostCard from './Card';
 import img from '../../assets/office.jpg';
 import { useParams } from 'react-router-dom';
+import he from 'he';
 
 import { IPostCard } from './Card';
 import axios from 'axios';
@@ -38,11 +39,27 @@ function PostGroup() {
         key={key}
         _id={post._id}
         title={post.title}
-        content={post.content}
+        content={extractTextAndRemoveSpaces(post.content)}
         img={img}
       />
     );
   });
+
+  function extractTextAndRemoveSpaces(htmlString: string): string {
+    // Convert escaped HTML tags to actual HTML tags
+    const decodedString = he.decode(htmlString);
+
+    // Replace non-breaking space entities with a space
+    const stringWithoutNbsp = decodedString.replace(/&nbsp;/g, ' ');
+
+    // Remove HTML tags
+    const strippedString = stringWithoutNbsp.replace(/<\/?[^>]+(>|$)/g, '');
+
+    // Replace multiple whitespaces with a single space
+    const trimmedString = strippedString.replace(/\s+/g, ' ').trim();
+
+    return trimmedString;
+  }
 
   return (
     <div className={tw_wrapper}>

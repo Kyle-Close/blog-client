@@ -53,9 +53,6 @@ function RecentPosts() {
       <div className='flex flex-col gap-4 sm:gap-6'>
         <h3 className={tw_recentPostsTitle}>Recent Posts</h3>
         <div className={tw_postsContainer}>{Posts && Posts}</div>
-        <a href='/' className={tw_link}>
-          Want more? See all posts here.
-        </a>
       </div>
     </div>
   );
