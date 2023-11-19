@@ -19,12 +19,7 @@ function PublishCheckbox({ setPostFormData, isChecked }: PublishCheckboxProps) {
   return (
     <div className='flex max-w-md flex-col gap-4' id='checkbox'>
       <div className='flex items-center gap-2'>
-        <Checkbox
-          defaultChecked
-          checked={isChecked}
-          onChange={handleChange}
-          id='accept'
-        />
+        <Checkbox checked={isChecked} onChange={handleChange} id='accept' />
         <Label htmlFor='accept' className='flex text-slate-200'>
           Publish
         </Label>

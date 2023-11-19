@@ -13,8 +13,9 @@ export function removeMarkup(inputString: string) {
 }
 
 export function decodeEntities(encodedString: string) {
-  var doc = new DOMParser().parseFromString(encodedString, 'text/html');
-  return doc.body.textContent || '';
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = encodedString;
+  return textarea.value;
 }
 
 export const formatDate = (date: string) => {

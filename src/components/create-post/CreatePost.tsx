@@ -38,10 +38,6 @@ function CreatePost() {
     null
   );
 
-  React.useEffect(() => {
-    console.log('allCategories: ', allCategories);
-  }, [allCategories]);
-
   const isEditing = postId ? true : false;
 
   const getInitialPostFormData = async (isEditing: boolean) => {
@@ -110,7 +106,7 @@ function CreatePost() {
 
       return {
         title: fetchedPostData.title,
-        content: fetchedPostData.content,
+        content: he.decode(fetchedPostData.content),
         category: finalCategory,
         isPublished: fetchedPostData.isPublished,
       };
@@ -132,10 +128,6 @@ function CreatePost() {
 
     fetchInitialData();
   }, []);
-
-  React.useEffect(() => {
-    console.log(postFormData);
-  }, [postFormData]);
 
   const submitPost = async (e: any) => {
     e.preventDefault();
@@ -219,7 +211,7 @@ function CreatePost() {
   const handleEditorChange = (content: any, editor: any) => {
     setPostFormData((prevPostFormData: any) => ({
       ...prevPostFormData,
-      content: content,
+      content: he.decode(content),
     }));
   };
 
@@ -265,7 +257,7 @@ function CreatePost() {
           <Editor
             onEditorChange={handleEditorChange}
             apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
-            value={postFormData?.content}
+            value={postFormData.content}
             onInit={(evt, editor) => {
               editorRef.current = editor;
             }}
