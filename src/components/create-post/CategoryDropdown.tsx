@@ -12,58 +12,39 @@ export interface ICategory {
 
 interface CategoryDropdownProps {
   setPostFormData: any;
-  category: string;
+  category: { _id: string; category: string };
+  categories: ICategory[];
 }
 
 interface ISelectedOption {
   category: string;
-  id: string;
+  _id: string;
 }
 
 function CategoryDropdown({
   setPostFormData,
   category,
+  categories,
 }: CategoryDropdownProps) {
-  const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [selectedOption, setSelectedOption] = useState<ISelectedOption | null>(
     null
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/categories');
-        if (res.data) {
-          setCategories(res.data.categories);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, []);
+  console.log('category', category);
+  console.log('categories', categories);
 
   useEffect(() => {
     setPostFormData((prevPostFormData: IPostData) => {
       return {
         ...prevPostFormData,
-        category: selectedOption?.id,
+        category: selectedOption?._id,
       };
     });
   }, [selectedOption]);
 
-  const findDefaultCategory = () => {
-    if (!categories || !category) return null;
-
-    const foundCategory = categories.find(
-      (cat) => cat.category === category.toLowerCase()
-    );
-
-    return foundCategory
-      ? { category: foundCategory.category, id: foundCategory._id }
-      : null;
-  };
+  React.useEffect(() => {
+    setSelectedOption(category);
+  }, []);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = findSelectedCategoryId(event.target.value);
@@ -82,7 +63,7 @@ function CategoryDropdown({
   };
 
   const createDropdownOptions = () => {
-    return categories?.map((category) => {
+    return categories.map((category) => {
       return (
         <option key={category._id} value={category.category}>
           {capitalizeWords(category.category)}

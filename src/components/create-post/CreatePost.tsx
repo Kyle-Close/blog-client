@@ -21,7 +21,7 @@ import axios from 'axios';
 export interface IPostData {
   title: string;
   content: string;
-  category: string;
+  category: { _id: string; category: string };
   isPublished: boolean;
 }
 
@@ -30,7 +30,8 @@ function CreatePost() {
   const { user } = React.useContext(UserContext) as UserContextType;
   const { open, handleOpen, handleClose, modalData, setModalDataState } =
     useModal();
-  const [initialContentSet, setInitialContentSet] = React.useState(false);
+
+  const [allCategories, setAllCategories] = React.useState();
 
   const editorRef = useRef<any>(null);
   const [postFormData, setPostFormData] = React.useState<IPostData | null>(
@@ -38,31 +39,99 @@ function CreatePost() {
   );
 
   React.useEffect(() => {
-    if (postId && !initialContentSet) {
-      const getPostData = async (id: string) => {
-        try {
-          const res = await axios.get(`http://localhost:3000/posts/${id}`);
-          if (res) {
-            const data = res.data;
-            console.log(data);
+    console.log('allCategories: ', allCategories);
+  }, [allCategories]);
 
-            // Decode HTML entities
-            setPostFormData({
-              title: data.title,
-              content: he.decode(data.content),
-              category: data.category,
-              isPublished: data.isPublished,
-            });
-            setInitialContentSet(true);
-          }
-        } catch (err) {
-          console.log(err);
+  const isEditing = postId ? true : false;
+
+  const getInitialPostFormData = async (isEditing: boolean) => {
+    const fetchCategories = async () => {
+      return await axios.get('http://localhost:3000/categories');
+    };
+
+    const getCategoryData = async () => {
+      const categoriesRes = await fetchCategories();
+      if (categoriesRes && categoriesRes.status === 200) {
+        const { categories } = categoriesRes.data;
+        return categories;
+      }
+    };
+
+    const categoryData = await getCategoryData();
+    if (categoryData.length > 0) {
+      setAllCategories(categoryData);
+    }
+
+    if (!isEditing) {
+      const category = {
+        _id: categoryData[0]._id,
+        category: categoryData[0].category,
+      };
+      return {
+        title: '',
+        content: '',
+        category,
+        isPublished: true,
+      };
+    }
+
+    const getPostData = async (id: any) => {
+      try {
+        const res = await axios.get(`http://localhost:3000/posts/${id}`);
+        if (res) {
+          const data = res.data;
+          return {
+            title: data.title,
+            content: data.content,
+            category: data.category,
+            isPublished: data.isPublished,
+          };
         }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const fetchedPostData = await getPostData(postId);
+    let finalCategory = {
+      _id: categoryData[0]._id,
+      category: categoryData[0].category,
+    };
+
+    if (fetchedPostData) {
+      const category = categoryData.find(
+        (category: any) => category._id === fetchedPostData.category
+      );
+
+      finalCategory = {
+        _id: category._id,
+        category: category.category,
       };
 
-      getPostData(postId);
+      return {
+        title: fetchedPostData.title,
+        content: fetchedPostData.content,
+        category: finalCategory,
+        isPublished: fetchedPostData.isPublished,
+      };
     }
-  }, [postId, initialContentSet]);
+
+    return {
+      title: '',
+      content: '',
+      category: { _id: '', category: '' },
+      isPublished: '',
+    };
+  };
+
+  React.useEffect(() => {
+    const fetchInitialData = async () => {
+      const initialData = await getInitialPostFormData(isEditing);
+      setPostFormData(initialData);
+    };
+
+    fetchInitialData();
+  }, []);
 
   React.useEffect(() => {
     console.log(postFormData);
@@ -155,58 +224,58 @@ function CreatePost() {
   };
 
   return (
-    <Box component='form' className={tw_wrapper}>
-      {open && modalData && (
-        <CreatePostModal
-          open={open}
-          handleClose={handleClose}
-          msg={modalData.msg}
-          btnText={modalData.btnText}
-          btnLink={modalData.btnLink}
-          isSuccess
-        />
-      )}
-
-      <div className={tw_container}>
-        <div className={tw_top}>
-          <div className='flex flex-col gap-2'>
-            <PublishCheckbox
-              isChecked={postFormData?.isPublished}
-              setPostFormData={setPostFormData}
-            />
-            {postId ? (
-              <SubmitButton text={'Update'} submitPost={submitPost} />
-            ) : (
-              <SubmitButton text={'Post'} submitPost={submitPost} />
-            )}
-          </div>
-          <CategoryDropdown
-            setPostFormData={setPostFormData}
-            category={postFormData?.category}
+    postFormData &&
+    allCategories && (
+      <Box component='form' className={tw_wrapper}>
+        {open && modalData && (
+          <CreatePostModal
+            open={open}
+            handleClose={handleClose}
+            msg={modalData.msg}
+            btnText={modalData.btnText}
+            btnLink={modalData.btnLink}
+            isSuccess
           />
-          <TitleInput
-            setPostFormData={setPostFormData}
-            title={postFormData?.title}
+        )}
+
+        <div className={tw_container}>
+          <div className={tw_top}>
+            <div className='flex flex-col gap-2'>
+              <PublishCheckbox
+                isChecked={postFormData.isPublished}
+                setPostFormData={setPostFormData}
+              />
+              {postId ? (
+                <SubmitButton text={'Update'} submitPost={submitPost} />
+              ) : (
+                <SubmitButton text={'Post'} submitPost={submitPost} />
+              )}
+            </div>
+            <CategoryDropdown
+              setPostFormData={setPostFormData}
+              category={postFormData.category}
+              categories={allCategories}
+            />
+            <TitleInput
+              setPostFormData={setPostFormData}
+              title={postFormData?.title}
+            />
+          </div>
+
+          <Editor
+            onEditorChange={handleEditorChange}
+            apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
+            value={postFormData?.content}
+            onInit={(evt, editor) => {
+              editorRef.current = editor;
+            }}
+            init={{
+              height: '100%',
+            }}
           />
         </div>
-
-        <Editor
-          onEditorChange={handleEditorChange}
-          apiKey='gmj1s7ghdl1r6il175wk2h9qps95o3qwa3zc8lczrj9wav73'
-          value={postFormData?.content}
-          onInit={(evt, editor) => {
-            editorRef.current = editor;
-
-            // Set the content of the editor when initializing
-            //const fetchedContent = postFormData?.content || '';
-            //editor.setContent(fetchedContent);
-          }}
-          init={{
-            height: '100%',
-          }}
-        />
-      </div>
-    </Box>
+      </Box>
+    )
   );
 }
 
