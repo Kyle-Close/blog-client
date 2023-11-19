@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmDeletePostModal from './ConfirmDeletePostModal';
 import { limitChars, capitalizeWords } from '../../helpers/util';
 import he from 'he';
+import { useLocation } from 'react-router-dom';
 
 interface AuthorPostsTimelineProps {
   postLimit?: number;
@@ -19,6 +20,9 @@ interface AuthorPostsTimelineProps {
 
 function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
   const { id } = useParams();
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const isDashboard = currentPath.includes('dashboard');
   const navigate = useNavigate();
   const [openModal, setOpenModal] = React.useState(false);
   const [recentPostData, setRecentPostData] = React.useState<IPost[] | null>(
@@ -138,7 +142,8 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
         const res = await axios.delete(`http://localhost:3000/posts/${id}`);
         if (res.status === 204) {
           setupData();
-          navigate(`/dashboard/user/${id}`);
+          if (isDashboard) navigate(`/dashboard/user/${id}`);
+          else navigate(`/posts/user/${id}`);
           return;
         }
       } catch (err) {
