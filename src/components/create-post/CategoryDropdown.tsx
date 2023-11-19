@@ -30,9 +30,6 @@ function CategoryDropdown({
     null
   );
 
-  console.log('category', category);
-  console.log('categories', categories);
-
   useEffect(() => {
     setPostFormData((prevPostFormData: IPostData) => {
       return {
@@ -48,7 +45,8 @@ function CategoryDropdown({
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = findSelectedCategoryId(event.target.value);
-    if (id !== null) setSelectedOption({ category: event.target.value, id });
+    if (id !== null)
+      setSelectedOption({ category: event.target.value, _id: id });
   };
 
   const findSelectedCategoryId = (category: string) => {
