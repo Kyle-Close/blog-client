@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import parse from 'html-react-parser';
+import { removeMarkup, limitChars } from '../../../helpers/util';
 
 interface RecentPostProps {
   img: string;
@@ -10,6 +11,7 @@ interface RecentPostProps {
 
 function RecentPost({ img, title, content, url }: RecentPostProps) {
   const navigate = useNavigate();
+  content = limitChars(removeMarkup(content), 200);
 
   const handleButtonClick = () => {
     if (url) navigate(url);
@@ -30,10 +32,7 @@ function RecentPost({ img, title, content, url }: RecentPostProps) {
           <h4 className={tw_title}>{title}</h4>
         </button>
 
-        <div
-          className={tw_content}
-          dangerouslySetInnerHTML={createMarkup(content)}
-        ></div>
+        <p className={tw_content}>{content}</p>
       </div>
     </div>
   );
