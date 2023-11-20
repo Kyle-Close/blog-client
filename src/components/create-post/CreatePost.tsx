@@ -146,12 +146,12 @@ function CreatePost() {
 
       if (postId) {
         res = await GetUpdatePostResponse(
-          `http://localhost:3000/posts/${postId}`,
+          `https://blogging-wit-bits.fly.dev/posts/${postId}`,
           postData
         );
       } else {
         res = await GetCreatePostResponse(
-          'http://localhost:3000/posts',
+          'https://blogging-wit-bits.fly.dev/posts',
           postData
         );
       }
