@@ -2,6 +2,7 @@
 
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { IPost } from '../landing-page/recent-posts/RecentPosts';
 
 interface ConfirmDeletePostModalProps {
   openModal: boolean;

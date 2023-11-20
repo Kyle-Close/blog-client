@@ -6,7 +6,6 @@ import axios from 'axios';
 import React from 'react';
 import { IPost } from '../landing-page/recent-posts/RecentPosts';
 import { useParams } from 'react-router-dom';
-import { removeMarkup } from '../../helpers/util';
 import { formatDate } from '../../helpers/util';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDeletePostModal from './ConfirmDeletePostModal';

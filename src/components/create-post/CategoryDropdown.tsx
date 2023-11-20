@@ -1,5 +1,4 @@
 import { Label, Select } from 'flowbite-react';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IPostData } from './CreatePost';
 import { capitalizeWords } from '../../helpers/util';

@@ -1,5 +1,4 @@
 import { Checkbox, Label } from 'flowbite-react';
-import React from 'react';
 
 interface PublishCheckboxProps {
   setPostFormData: any;
