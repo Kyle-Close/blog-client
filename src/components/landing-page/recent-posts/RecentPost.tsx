@@ -17,10 +17,10 @@ function RecentPost({ img, title, content, url }: RecentPostProps) {
     if (url) navigate(url);
   };
 
-  const createMarkup = (htmlString: string) => {
+  /*  const createMarkup = (htmlString: string) => {
     return { __html: parse(htmlString) };
   };
-
+*/
   return (
     <div onClick={handleButtonClick} className={tw_postContainer}>
       <button className={tw_imageButtonWrapper}>
