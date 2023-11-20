@@ -45,11 +45,14 @@ function Signup() {
 
     // Send the request to create a new user with form data
     try {
-      const response = await axios.post('http://localhost:3000/users', {
-        username: formData.username,
-        password: formData.password,
-        isAuthor: false,
-      });
+      const response = await axios.post(
+        'https://blogging-wit-bits.fly.dev/users',
+        {
+          username: formData.username,
+          password: formData.password,
+          isAuthor: false,
+        }
+      );
       if (response) {
         // Login
         const { _id, token, username, isAuthor } = response.data.user;

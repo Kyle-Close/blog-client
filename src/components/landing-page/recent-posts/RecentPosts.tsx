@@ -25,7 +25,7 @@ function RecentPosts() {
 
   React.useEffect(() => {
     const getRecentPosts = async () => {
-      return await axios.get('http://localhost:3000/recent-posts');
+      return await axios.get('https://blogging-wit-bits.fly.dev/recent-posts');
     };
     const setupData = async () => {
       const res = await getRecentPosts();

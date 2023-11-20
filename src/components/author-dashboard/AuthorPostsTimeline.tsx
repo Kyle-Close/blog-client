@@ -35,14 +35,20 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
 
   const getPosts = async () => {
     if (postLimit) {
-      return await axios.post(`http://localhost:3000/posts/user/${id}`, {
-        postLimit,
-      });
-    } else return await axios.post(`http://localhost:3000/posts/user/${id}`);
+      return await axios.post(
+        `https://blogging-wit-bits.fly.dev/posts/user/${id}`,
+        {
+          postLimit,
+        }
+      );
+    } else
+      return await axios.post(
+        `https://blogging-wit-bits.fly.dev/posts/user/${id}`
+      );
   };
 
   const getCategories = async () => {
-    return await axios.get('http://localhost:3000/categories');
+    return await axios.get('https://blogging-wit-bits.fly.dev/categories');
   };
 
   const getCategoryNameById = (id: any, categories: any) => {
@@ -139,7 +145,9 @@ function AuthorPostsTimeline({ postLimit }: AuthorPostsTimelineProps) {
   const handleDelete = async () => {
     const deletePost = async (id: any) => {
       try {
-        const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+        const res = await axios.delete(
+          `https://blogging-wit-bits.fly.dev/posts/${id}`
+        );
         if (res.status === 204) {
           setupData();
           if (isDashboard) navigate(`/dashboard/user/${id}`);

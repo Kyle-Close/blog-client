@@ -36,10 +36,13 @@ function Login() {
 
     // Send the request to TODO : login
     try {
-      const response = await axios.post('http://localhost:3000/login', {
-        username: formData.username,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        'https://blogging-wit-bits.fly.dev/login',
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
       if (response) {
         // Login
         const { _id, token, username, isAuthor } = response.data.user;

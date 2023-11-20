@@ -15,7 +15,9 @@ function PopularPosts() {
   // Hit the API to get popular posts (seperate table for this?)
   React.useEffect(() => {
     const fetchPopularPosts = async () => {
-      const response = await axios.get('http://localhost:3000/popular-posts');
+      const response = await axios.get(
+        'https://blogging-wit-bits.fly.dev/popular-posts'
+      );
       return response;
     };
     const getPosts = async () => {

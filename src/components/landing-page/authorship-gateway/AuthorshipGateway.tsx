@@ -52,7 +52,7 @@ function AuthorshipGateway({ isAuthor, userId }: IAuthorshipGatewayProps) {
 
   const handleModalApply = async () => {
     const response = await axios.patch(
-      `http://localhost:3000/make_user_author/${user?.id}`
+      `https://blogging-wit-bits.fly.dev/make_user_author/${user?.id}`
     );
 
     console.log(response);

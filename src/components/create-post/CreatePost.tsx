@@ -42,7 +42,7 @@ function CreatePost() {
 
   const getInitialPostFormData = async (isEditing: boolean) => {
     const fetchCategories = async () => {
-      return await axios.get('http://localhost:3000/categories');
+      return await axios.get('https://blogging-wit-bits.fly.dev/categories');
     };
 
     const getCategoryData = async () => {
@@ -73,7 +73,9 @@ function CreatePost() {
 
     const getPostData = async (id: any) => {
       try {
-        const res = await axios.get(`http://localhost:3000/posts/${id}`);
+        const res = await axios.get(
+          `https://blogging-wit-bits.fly.dev/posts/${id}`
+        );
         if (res) {
           const data = res.data;
           return {

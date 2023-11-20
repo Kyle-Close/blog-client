@@ -18,8 +18,8 @@ function PostGroup() {
     const fetchData = async () => {
       try {
         const [categoryResponse, postsResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/categories/${id}`),
-          axios.get(`http://localhost:3000/posts/category/${id}`),
+          axios.get(`https://blogging-wit-bits.fly.dev/categories/${id}`),
+          axios.get(`https://blogging-wit-bits.fly.dev/posts/category/${id}`),
         ]);
         if (categoryResponse.status === 200 && postsResponse.status === 200) {
           let category = categoryResponse.data.category.category;

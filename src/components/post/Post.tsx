@@ -21,7 +21,9 @@ function Post() {
   React.useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/posts/${id}`);
+        const response = await axios.get(
+          `https://blogging-wit-bits.fly.dev/posts/${id}`
+        );
         if (response.status === 200) {
           const rawPostData: PostData = response.data;
           const author: string = await fetchAuthor(response.data.createdBy);
@@ -37,7 +39,9 @@ function Post() {
 
     const fetchAuthor = async (id: string) => {
       try {
-        const response = await axios.get(`http://localhost:3000/users/${id}`);
+        const response = await axios.get(
+          `https://blogging-wit-bits.fly.dev/users/${id}`
+        );
         if (response.status === 200) {
           return response.data.user.username;
         }
