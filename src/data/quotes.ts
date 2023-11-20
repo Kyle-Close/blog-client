@@ -1,4 +1,3 @@
-import authorImg from '../assets/portrait1.jpg';
 import robotImg from '../assets/robot.png';
 
 export interface IQuoteData {

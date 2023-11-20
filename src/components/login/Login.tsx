@@ -1,18 +1,18 @@
-import axios from "axios";
-import React from "react";
-import LoginForm from "./LoginForm";
+import axios from 'axios';
+import React from 'react';
+import LoginForm from './LoginForm';
 
-import { areAllFieldsPopulated } from "../../helpers/util";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/userContext";
-import { UserContextType } from "../../@types/user";
+import { areAllFieldsPopulated } from '../../helpers/util';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
+import { UserContextType } from '../../@types/user';
 
 function Login() {
   const navigate = useNavigate();
-  const { login, user } = React.useContext(UserContext) as UserContextType;
+  const { login } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
   const [errMsgs, setErrMsgs] = React.useState<string[]>();
 
@@ -29,14 +29,14 @@ function Login() {
 
     // Check if fields are filled out
     if (!areAllFieldsPopulated(formData)) {
-      const responseMsg: string[] = ["All fields must be filled out"];
+      const responseMsg: string[] = ['All fields must be filled out'];
       setErrMsgs(responseMsg);
       return;
     }
 
     // Send the request to TODO : login
     try {
-      const response = await axios.post("http://localhost:3000/login", {
+      const response = await axios.post('http://localhost:3000/login', {
         username: formData.username,
         password: formData.password,
       });
@@ -49,7 +49,7 @@ function Login() {
           isAuthor: isAuthor,
         };
         login(user, token);
-        navigate("/");
+        navigate('/');
         return;
       }
     } catch (error: any) {
@@ -68,9 +68,9 @@ function Login() {
         formData={formData}
       />
       {errMsgs && errMsgs.length > 0 ? (
-        <ul className="list-disc">
+        <ul className='list-disc'>
           {errMsgs.map((msg, index) => (
-            <li key={index} className="text-sm text-red-500">
+            <li key={index} className='text-sm text-red-500'>
               {msg}
             </li>
           ))}
@@ -83,16 +83,16 @@ function Login() {
 export default Login;
 
 const tw_signupContentContainer = [
-  "grow",
-  "flex",
-  "flex-col",
-  "gap-6",
-  "sm:items-center",
-  "bg-header",
-  "px-12",
-  "pt-20",
-].join(" ");
+  'grow',
+  'flex',
+  'flex-col',
+  'gap-6',
+  'sm:items-center',
+  'bg-header',
+  'px-12',
+  'pt-20',
+].join(' ');
 
-const tw_signupTitle = ["font-semibold", "text-green-400", "text-2xl"].join(
-  " "
+const tw_signupTitle = ['font-semibold', 'text-green-400', 'text-2xl'].join(
+  ' '
 );

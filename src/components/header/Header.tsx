@@ -144,16 +144,6 @@ const tw_linksLeftSide = [
 
 const tw_leftSide = ['flex-1'].join(' ');
 
-const tw_allPosts = [
-  'hidden',
-  'text-transparent',
-  'font-semibold',
-  'text-md',
-  'md:text-lg',
-  'sm:flex',
-  'text-fuchsia-600',
-].join(' ');
-
 const tw_buttonContainer = [
   'flex',
   'gap-2',

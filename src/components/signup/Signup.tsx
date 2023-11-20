@@ -1,20 +1,19 @@
-import Header from "../header/Header";
-import axios from "axios";
-import React from "react";
-import SignupForm from "./SignupForm";
+import axios from 'axios';
+import React from 'react';
+import SignupForm from './SignupForm';
 
-import { useNavigate } from "react-router-dom";
-import { areAllFieldsPopulated } from "../../helpers/util";
-import { UserContext } from "../../context/userContext";
-import { UserContextType } from "../../@types/user";
+import { useNavigate } from 'react-router-dom';
+import { areAllFieldsPopulated } from '../../helpers/util';
+import { UserContext } from '../../context/userContext';
+import { UserContextType } from '../../@types/user';
 
 function Signup() {
   const navigate = useNavigate();
   const { login } = React.useContext(UserContext) as UserContextType;
   const [formData, setFormData] = React.useState({
-    username: "",
-    password: "",
-    confirmPassword: "",
+    username: '',
+    password: '',
+    confirmPassword: '',
     isAuthor: false,
   });
   const [errMsgs, setErrMsgs] = React.useState<string[]>();
@@ -32,21 +31,21 @@ function Signup() {
 
     // Check if fields are filled out
     if (!areAllFieldsPopulated(formData)) {
-      const responseMsg: string[] = ["All fields must be filled out"];
+      const responseMsg: string[] = ['All fields must be filled out'];
       setErrMsgs(responseMsg);
       return;
     }
 
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
-      const responseMsg: string[] = ["Password miss-match!"];
+      const responseMsg: string[] = ['Password miss-match!'];
       setErrMsgs(responseMsg);
       return;
     }
 
     // Send the request to create a new user with form data
     try {
-      const response = await axios.post("http://localhost:3000/users", {
+      const response = await axios.post('http://localhost:3000/users', {
         username: formData.username,
         password: formData.password,
         isAuthor: false,
@@ -60,7 +59,7 @@ function Signup() {
           isAuthor: isAuthor,
         };
         login(user, token);
-        navigate("/");
+        navigate('/');
         return;
       }
     } catch (error: any) {
@@ -80,9 +79,9 @@ function Signup() {
         formData={formData}
       />
       {errMsgs && errMsgs.length > 0 ? (
-        <ul className="list-disc">
+        <ul className='list-disc'>
           {errMsgs.map((msg, index) => (
-            <li key={index} className="text-sm text-red-500">
+            <li key={index} className='text-sm text-red-500'>
               {msg}
             </li>
           ))}
@@ -95,16 +94,16 @@ function Signup() {
 export default Signup;
 
 const tw_signupContentContainer = [
-  "grow",
-  "flex",
-  "flex-col",
-  "gap-6",
-  "sm:items-center",
-  "bg-header",
-  "px-12",
-  "pt-20",
-].join(" ");
+  'grow',
+  'flex',
+  'flex-col',
+  'gap-6',
+  'sm:items-center',
+  'bg-header',
+  'px-12',
+  'pt-20',
+].join(' ');
 
-const tw_signupTitle = ["font-semibold", "text-green-400", "text-2xl"].join(
-  " "
+const tw_signupTitle = ['font-semibold', 'text-green-400', 'text-2xl'].join(
+  ' '
 );

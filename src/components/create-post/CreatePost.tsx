@@ -208,7 +208,7 @@ function CreatePost() {
     return { status, id };
   };
 
-  const handleEditorChange = (content: any, editor: any) => {
+  const handleEditorChange = (content: any) => {
     setPostFormData((prevPostFormData: any) => ({
       ...prevPostFormData,
       content: he.decode(content),
@@ -260,6 +260,8 @@ function CreatePost() {
             value={postFormData.content}
             onInit={(evt, editor) => {
               editorRef.current = editor;
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              evt; // Ignore the unused parameter
             }}
             init={{
               height: '100%',
