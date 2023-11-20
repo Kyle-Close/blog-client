@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import parse from 'html-react-parser';
+//import parse from 'html-react-parser';
 import { removeMarkup, limitChars } from '../../../helpers/util';
 
 interface RecentPostProps {
